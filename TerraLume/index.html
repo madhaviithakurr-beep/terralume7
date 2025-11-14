@@ -1,0 +1,2334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B1020">
+    
+    <!-- SEO -->
+    <title>Terra Lume — Light Up Every Moment</title>
+    <meta name="description" content="Premium designer lamps inspired by celestial bodies. Quietly luxurious, tactile lighting for discerning spaces.">
+    <meta name="keywords" content="designer lamps, planet lamps, luxury lighting, space lighting, premium home lighting">
+    <link rel="canonical" href="https://terralume7.vercel.app">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Terra Lume — Light Up Every Moment">
+    <meta property="og:description" content="Premium designer lamps inspired by celestial bodies.">
+    <meta property="og:image" content="https://terralume7.vercel.app/og-image.jpg">
+    <meta property="og:url" content="https://terralume7.vercel.app.com">
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='40' fill='%23A67C52'/></svg>">
+
+<style>
+/* ==================== DESIGN TOKENS ==================== */
+:root {
+    /* Colors — Terra Lume Brand Palette */
+    --bg-primary: #0B1020;
+    --bg-secondary: #111827;
+    --bg-tertiary: #1a2332;
+    --text-primary: #F3F3F5;
+    --text-secondary: #A0A8B8;
+    --text-tertiary: #6B7280;
+    --accent-primary: #A67C52;
+    --accent-secondary: #C4A57B;
+    --accent-glow: rgba(166, 124, 82, 0.4);
+    --border: #1f2937;
+    --shadow: rgba(0, 0, 0, 0.3);
+    --shadow-md: rgba(0, 0, 0, 0.4);
+    --shadow-lg: rgba(0, 0, 0, 0.5);
+    --overlay: rgba(11, 16, 32, 0.95);
+    
+    /* Typography — Modular Scale */
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-xs: clamp(0.75rem, 2vw, 0.875rem);
+    --font-sm: clamp(0.875rem, 2.5vw, 1rem);
+    --font-base: clamp(1rem, 3vw, 1.125rem);
+    --font-lg: clamp(1.125rem, 3.5vw, 1.25rem);
+    --font-xl: clamp(1.25rem, 4vw, 1.5rem);
+    --font-2xl: clamp(1.5rem, 4.5vw, 2rem);
+    --font-3xl: clamp(2rem, 5.5vw, 2.75rem);
+    --font-4xl: clamp(2.5rem, 7vw, 4rem);
+    --font-5xl: clamp(3rem, 10vw, 5.5rem);
+    
+    /* Spacing Scale */
+    --space-xs: clamp(0.5rem, 2vw, 0.75rem);
+    --space-sm: clamp(0.75rem, 2.5vw, 1rem);
+    --space-md: clamp(1rem, 3vw, 1.5rem);
+    --space-lg: clamp(1.5rem, 4vw, 2rem);
+    --space-xl: clamp(2rem, 5vw, 3rem);
+    --space-2xl: clamp(3rem, 7vw, 5rem);
+    --space-3xl: clamp(4rem, 10vw, 8rem);
+    
+    /* Layout */
+    --max-width: 1200px;
+    --container-padding: clamp(1.5rem, 5vw, 3rem);
+    --header-height: 80px;
+    
+    /* Radii */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+    --radius-full: 9999px;
+    
+    /* Shadows — Layered Glow */
+    --glow-sm: 0 0 20px var(--accent-glow), 0 0 40px rgba(166, 124, 82, 0.2);
+    --glow-md: 0 0 30px var(--accent-glow), 0 0 60px rgba(166, 124, 82, 0.3);
+    --glow-lg: 0 0 40px var(--accent-glow), 0 0 80px rgba(166, 124, 82, 0.4);
+    
+    /* Z-Index Map */
+    --z-background: -1;
+    --z-base: 0;
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-modal: 1000;
+    --z-toast: 2000;
+    --z-loader: 10000;
+    
+    /* Animation Timing */
+    --ease: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0.0, 0, 0.2, 1);
+    --ease-in: cubic-bezier(0.4, 0, 1, 1);
+    --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Motion Variables */
+    --duration-fast: 150ms;
+    --duration-base: 220ms;
+    --duration-slow: 350ms;
+}
+
+/* ==================== RESET ==================== */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ==================== BASE ==================== */
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: inherit;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+::selection {
+    background: var(--accent-primary);
+    color: white;
+}
+
+/* ==================== REDUCED MOTION ==================== */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* ==================== SPACE BACKGROUND ==================== */
+.space-background {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-background);
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.stars {
+    position: absolute;
+    inset: 0;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.3), transparent),
+        radial-gradient(2px 2px at 60px 70px, rgba(255, 255, 255, 0.2), transparent),
+        radial-gradient(1px 1px at 50px 50px, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.3), transparent),
+        radial-gradient(2px 2px at 90px 10px, rgba(255, 255, 255, 0.25), transparent);
+    background-size: 200px 200px;
+    background-repeat: repeat;
+    animation: twinkle 40s linear infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+.orbit {
+    position: absolute;
+    border: 1px solid rgba(166, 124, 82, 0.1);
+    border-radius: 50%;
+    animation: rotate 60s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.orbit-1 {
+    width: 300px;
+    height: 300px;
+    top: 10%;
+    left: -10%;
+    animation-duration: 80s;
+}
+
+.orbit-2 {
+    width: 500px;
+    height: 500px;
+    top: 30%;
+    right: -15%;
+    animation-duration: 120s;
+    animation-direction: reverse;
+}
+
+.orbit-3 {
+    width: 400px;
+    height: 400px;
+    bottom: -10%;
+    left: 20%;
+    animation-duration: 100s;
+}
+
+/* ==================== LOADER ==================== */
+.loader {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, var(--bg-primary), var(--bg-secondary));
+    z-index: var(--z-loader);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.6s var(--ease), visibility 0.6s var(--ease);
+}
+
+.loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-orb {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--space-xl);
+    background: radial-gradient(circle at 30% 30%, var(--accent-secondary), var(--accent-primary));
+    border-radius: 50%;
+    box-shadow: var(--glow-lg);
+    animation: float 3s ease-in-out infinite, glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes glow-pulse {
+    0%, 100% { box-shadow: var(--glow-md); }
+    50% { box-shadow: var(--glow-lg); }
+}
+
+.loader-text {
+    font-family: var(--font-serif);
+    font-size: var(--font-2xl);
+    letter-spacing: 0.1em;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* ==================== HEADER ==================== */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--header-height);
+    background: rgba(11, 16, 32, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: var(--z-sticky);
+    transition: all var(--duration-base) var(--ease);
+}
+
+.header.scrolled {
+    box-shadow: 0 4px 30px var(--shadow-lg);
+    background: rgba(11, 16, 32, 0.95);
+}
+
+.header-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Logo Image Styling */
+.logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: block;
+}
+
+/* Ensure logo stays horizontal */
+.logo {
+    display: flex !important;
+    align-items: center !important;
+    gap: var(--space-sm);
+    flex-wrap: nowrap;
+}
+
+.logo span {
+    white-space: nowrap;
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+    .logo-img {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .logo {
+        gap: 0.5rem;
+    }
+}
+
+.nav {
+    display: none;
+    gap: var(--space-xl);
+}
+
+@media (min-width: 768px) {
+    .nav {
+        display: flex;
+    }
+}
+
+.nav-link {
+    font-size: var(--font-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary);
+    position: relative;
+    padding: var(--space-xs) 0;
+    transition: color var(--duration-base) var(--ease);
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--accent-primary);
+    box-shadow: var(--glow-sm);
+    transition: all var(--duration-base) var(--ease);
+    transform: translateX(-50%);
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+    color: var(--text-primary);
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-link:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+}
+
+.mobile-menu-btn {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+@media (min-width: 768px) {
+    .mobile-menu-btn {
+        display: none;
+    }
+}
+
+.mobile-menu-btn span {
+    width: 24px;
+    height: 2px;
+    background: var(--text-primary);
+    border-radius: 2px;
+    transition: all var(--duration-base) var(--ease);
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+.mobile-menu-btn:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+}
+
+.mobile-menu {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+    transform: translateY(-100%);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--duration-slow) var(--ease);
+    box-shadow: 0 10px 40px var(--shadow);
+}
+
+.mobile-menu.active {
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav {
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.mobile-nav-link {
+    font-size: var(--font-lg);
+    font-weight: 600;
+    padding: var(--space-sm) 0;
+    border-bottom: 1px solid var(--border);
+    transition: all var(--duration-base) var(--ease);
+    color: var(--text-secondary);
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-link:focus-visible {
+    color: var(--accent-primary);
+    padding-left: var(--space-sm);
+}
+
+/* ==================== HERO ==================== */
+.hero {
+    position: relative;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: var(--space-3xl) var(--container-padding);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.hero-badge {
+    display: inline-block;
+    font-size: var(--font-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent-secondary);
+    padding: var(--space-xs) var(--space-md);
+    border: 1px solid rgba(196, 165, 123, 0.3);
+    border-radius: var(--radius-full);
+    margin-bottom: var(--space-lg);
+    backdrop-filter: blur(10px);
+    animation: fadeInDown 0.8s var(--ease-out) 0.2s both;
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-title {
+    font-size: var(--font-5xl);
+    margin-bottom: var(--space-lg);
+    animation: fadeInUp 0.8s var(--ease-out) 0.4s both;
+    line-height: 1.1;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero-description {
+    font-size: var(--font-lg);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeInUp 0.8s var(--ease-out) 0.6s both;
+}
+
+.hero-ctas {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+    flex-wrap: wrap;
+    animation: fadeInUp 0.8s var(--ease-out) 0.8s both;
+}
+
+.hero-planet {
+    position: absolute;
+    width: clamp(300px, 50vw, 600px);
+    height: clamp(300px, 50vw, 600px);
+    right: -10%;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.15;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.hero-planet-orb {
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 35% 35%, var(--accent-secondary), var(--accent-primary));
+    border-radius: 50%;
+    box-shadow: var(--glow-lg);
+    animation: float 8s ease-in-out infinite;
+}
+
+/* ==================== BUTTONS ==================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    padding: clamp(0.875rem, 2.5vw, 1.125rem) clamp(1.75rem, 5vw, 2.5rem);
+    font-size: var(--font-base);
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    transition: all var(--duration-base) var(--ease);
+    position: relative;
+    overflow: hidden;
+    min-height: 44px;
+}
+
+.btn:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+}
+
+.btn-primary {
+    background: var(--accent-primary);
+    color: white;
+    box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent-secondary);
+    transform: translateY(100%);
+    transition: transform var(--duration-base) var(--ease);
+}
+
+.btn-primary:hover::before,
+.btn-primary:focus-visible::before {
+    transform: translateY(0);
+}
+
+.btn-primary span,
+.btn-primary svg {
+    position: relative;
+    z-index: 1;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+    transform: translateY(-3px);
+    box-shadow: var(--glow-lg);
+}
+
+.btn-primary:active {
+    transform: translateY(-1px) scale(0.97);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--text-primary);
+    border: 2px solid var(--border);
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus-visible {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+    transform: translateY(-3px);
+}
+
+.btn-secondary:active {
+    transform: translateY(-1px) scale(0.97);
+}
+
+.btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    transition: transform var(--duration-base) var(--ease);
+}
+
+.btn:hover svg {
+    transform: translateX(3px);
+}
+
+/* ==================== SECTION ==================== */
+.section {
+    padding: var(--space-3xl) 0;
+    position: relative;
+}
+
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+}
+
+.section-badge {
+    display: inline-block;
+    font-size: var(--font-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.section-title {
+    font-size: var(--font-4xl);
+    margin-bottom: var(--space-md);
+}
+
+.section-description {
+    font-size: var(--font-lg);
+    color: var(--text-secondary);
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ==================== PRODUCTS ==================== */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-xl);
+}
+
+@media (max-width: 640px) {
+    .products-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.product-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all var(--duration-slow) var(--ease);
+    border: 1px solid var(--border);
+    position: relative;
+}
+
+.product-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+    border: 2px solid transparent;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--duration-base) var(--ease);
+    pointer-events: none;
+}
+
+.product-card:hover::before,
+.product-card:focus-within::before {
+    opacity: 1;
+}
+
+.product-card:hover,
+.product-card:focus-within {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 60px var(--shadow-lg);
+}
+
+.product-image {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: radial-gradient(circle at center, var(--bg-tertiary), var(--bg-secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.planet-backplate {
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, var(--accent-secondary), var(--accent-primary));
+    box-shadow: var(--glow-md);
+    transition: all var(--duration-slow) var(--ease);
+}
+
+.product-card:hover .planet-backplate {
+    transform: scale(1.05);
+    box-shadow: var(--glow-lg);
+}
+
+.lamp-img {
+    position: relative;
+    z-index: 2;
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
+    transition: transform var(--duration-slow) var(--ease);
+}
+
+.product-card:hover .lamp-img {
+    transform: scale(1.08) translateY(-5px);
+}
+
+.product-badge {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    padding: var(--space-xs) var(--space-md);
+    background: rgba(11, 16, 32, 0.9);
+    backdrop-filter: blur(10px);
+    color: var(--accent-secondary);
+    font-size: var(--font-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-full);
+    border: 1px solid var(--border);
+    z-index: 3;
+}
+
+.product-info {
+    padding: var(--space-lg);
+}
+
+.product-name {
+    font-size: var(--font-xl);
+    margin-bottom: var(--space-xs);
+    font-weight: 500;
+}
+
+.product-price {
+    font-size: var(--font-sm);
+    color: var(--accent-primary);
+    margin-bottom: var(--space-md);
+    font-weight: 600;
+}
+
+.product-description {
+    font-size: var(--font-base);
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+}
+
+.product-features {
+    list-style: none;
+    margin-bottom: var(--space-lg);
+}
+
+.product-features li {
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    padding-left: var(--space-md);
+    margin-bottom: var(--space-xs);
+    position: relative;
+}
+
+.product-features li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    color: var(--accent-primary);
+    font-size: var(--font-lg);
+}
+
+.product-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-size: var(--font-sm);
+    font-weight: 600;
+    color: var(--accent-primary);
+    transition: all var(--duration-base) var(--ease);
+    min-height: 44px;
+    padding: var(--space-xs);
+}
+
+.product-cta:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+}
+
+.product-cta svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    transition: transform var(--duration-base) var(--ease);
+}
+
+.product-cta:hover svg,
+.product-cta:focus-visible svg {
+    transform: translateX(5px);
+}
+
+/* ==================== REVIEWS ==================== */
+.reviews-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.review-form {
+    background: var(--bg-secondary);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    margin-bottom: var(--space-2xl);
+}
+
+.form-title {
+    font-size: var(--font-2xl);
+    margin-bottom: var(--space-lg);
+}
+
+.form-group {
+    margin-bottom: var(--space-lg);
+}
+
+.form-label {
+    display: block;
+    font-size: var(--font-sm);
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+    color: var(--text-primary);
+}
+
+.form-input,
+.form-textarea {
+    width: 100%;
+    padding: var(--space-md);
+    font-size: var(--font-base);
+    font-family: inherit;
+    background: var(--bg-tertiary);
+    border: 2px solid transparent;
+    border-radius: var(--radius-sm);
+    transition: all var(--duration-base) var(--ease);
+    color: var(--text-primary);
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+    color: var(--text-tertiary);
+}
+
+.form-input:focus,
+.form-textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    background: var(--bg-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px var(--shadow);
+}
+
+.form-textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.rating-input {
+    display: flex;
+    gap: var(--space-xs);
+    margin-bottom: var(--space-md);
+    role : radiogroup;
+    aria-label: "Rating";
+}
+
+.star-btn {
+    width: 44px;
+    height: 44px;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: all var(--duration-fast) var(--ease);
+    color: var(--border);
+    padding: 0;
+}
+
+.star-btn:hover,
+.star-btn.active {
+    color: #FFB800;
+    transform: scale(1.2);
+}
+
+.star-btn:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+}
+
+.reviews-list {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.review-card {
+    background: var(--bg-secondary);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+    transition: all var(--duration-base) var(--ease);
+    animation: slideInUp var(--duration-slow) var(--ease-out);
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.review-card:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 40px var(--shadow);
+    border-color: var(--accent-primary);
+}
+
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+}
+
+.review-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 35%, var(--accent-secondary), var(--accent-primary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-xl);
+    font-weight: 600;
+    color: white;
+    flex-shrink: 0;
+}
+
+.review-author {
+    flex: 1;
+}
+
+.review-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.review-date {
+    font-size: var(--font-sm);
+    color: var(--text-tertiary);
+}
+
+.review-stars {
+    display: flex;
+    gap: 4px;
+}
+
+.star {
+    width: 16px;
+    height: 16px;
+    fill: #FFB800;
+}
+
+.star.empty {
+    fill: var(--border);
+}
+
+.review-text {
+    font-size: var(--font-base);
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.empty-state {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-lg);
+    color: var(--text-tertiary);
+}
+
+.empty-state svg {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--space-lg);
+    stroke: var(--text-tertiary);
+    opacity: 0.3;
+}
+
+/* ==================== CONTACT ==================== */
+.contact-form {
+    max-width: 700px;
+    margin: 0 auto;
+    background: var(--bg-secondary);
+    padding: var(--space-2xl);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border);
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+}
+
+.form-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    accent-color: var(--accent-primary);
+    cursor: pointer;
+}
+
+.checkbox-label {
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+/* ==================== FOOTER ==================== */
+.footer {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border);
+    padding: var(--space-2xl) 0 var(--space-lg);
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-xl);
+    margin-bottom: var(--space-xl);
+}
+
+.footer-brand {
+    grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
+    .footer-brand {
+        grid-column: auto;
+    }
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-serif);
+    font-size: var(--font-2xl);
+    margin-bottom: var(--space-md);
+}
+
+.footer-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+    max-width: 300px;
+}
+
+.social-links {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.social-link {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--duration-base) var(--ease);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent-primary);
+    transform: scale(0);
+    border-radius: 50%;
+    transition: transform var(--duration-base) var(--ease);
+}
+
+.social-link:hover::before,
+.social-link:focus-visible::before {
+    transform: scale(1);
+}
+
+.social-link:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+}
+
+.social-link svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--text-primary);
+    position: relative;
+    z-index: 1;
+    transition: stroke var(--duration-base) var(--ease);
+}
+
+.social-link:hover svg,
+.social-link:focus-visible svg {
+    stroke: white;
+}
+
+.footer-title {
+    font-size: var(--font-lg);
+    font-weight: 600;
+    margin-bottom: var(--space-md);
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.footer-link {
+    color: var(--text-secondary);
+    font-size: var(--font-base);
+    transition: all var(--duration-base) var(--ease);
+    position: relative;
+    padding-left: 0;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+    color: var(--accent-primary);
+    padding-left: var(--space-xs);
+}
+
+.footer-link:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
+}
+
+.footer-bottom {
+    padding-top: var(--space-lg);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    color: var(--text-tertiary);
+    font-size: var(--font-sm);
+}
+
+/* ==================== TOAST ==================== */
+.toast {
+    position: fixed;
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+    background: var(--bg-secondary);
+    padding: var(--space-md) var(--space-lg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 40px var(--shadow-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    z-index: var(--z-toast);
+    transform: translateX(500px);
+    opacity: 0;
+    transition: all var(--duration-slow) var(--ease);
+    max-width: 400px;
+}
+
+.toast.active {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.toast-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.toast.success .toast-icon {
+    stroke: #10B981;
+}
+
+.toast.error .toast-icon {
+    stroke: #EF4444;
+}
+
+.toast-message {
+    font-size: var(--font-base);
+}
+
+/* ==================== SCROLL TO TOP ==================== */
+.scroll-top {
+    position: fixed;
+    bottom: var(--space-lg);
+    right: var(--space-lg);
+    width: 50px;
+    height: 50px;
+    background: var(--accent-primary);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--glow-md);
+    opacity: 0;
+    visibility: hidden;
+    transition: all var(--duration-base) var(--ease);
+    z-index: var(--z-dropdown);
+}
+
+.scroll-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.scroll-top:hover,
+.scroll-top:focus-visible {
+    transform: translateY(-5px);
+    box-shadow: var(--glow-lg);
+}
+
+.scroll-top:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+}
+
+.scroll-top svg {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+}
+
+/* ==================== UTILITIES ==================== */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ==================== SCROLLBAR ==================== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-secondary);
+}
+</style>
+</head>
+<body>
+
+<!-- Space Background -->
+<div class="space-background" aria-hidden="true">
+    <div class="stars"></div>
+    <div class="orbit orbit-1"></div>
+    <div class="orbit orbit-2"></div>
+    <div class="orbit orbit-3"></div>
+</div>
+
+<!-- Loader -->
+<div class="loader" id="loader" role="status" aria-label="Loading">
+    <div class="loader-content">
+        <img src="assets/WhatsApp_Image_2025-11-14_at_5_imgupscaler.ai_General_2K-removebg-preview.png" alt="" class="loader-logo" aria-hidden="true">
+        <div class="loader-text">Terra Lume</div>
+    </div>
+</div>
+
+<!-- Header -->
+<header class="header" id="header">
+    <div class="header-container">
+        <a href="#home" class="logo">
+            <img src="assets/WhatsApp_Image_2025-11-14_at_5_imgupscaler.ai_General_2K-removebg-preview.png" alt="Terra Lume Logo" class="logo-img">
+            <span>Terra Lume</span>
+        </a>
+
+        <nav class="nav" aria-label="Main navigation">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#products" class="nav-link">Collection</a>
+            <a href="#reviews" class="nav-link">Reviews</a>
+            <a href="#contact" class="nav-link">Contact</a>
+        </nav>
+
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+        <a href="#home" class="mobile-nav-link">Home</a>
+        <a href="#products" class="mobile-nav-link">Collection</a>
+        <a href="#reviews" class="mobile-nav-link">Reviews</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+    </nav>
+</div>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div class="hero-planet" aria-hidden="true">
+        <div class="hero-planet-orb"></div>
+    </div>
+    <div class="hero-content">
+        <div class="hero-badge">Designer Lighting</div>
+        <h1 class="hero-title">Celestial Illumination</h1>
+        <p class="hero-description">Planet-inspired designer lamps. Quietly luxurious, tactile lighting crafted for discerning spaces.</p>
+        <div class="hero-ctas">
+            <a href="#products" class="btn btn-primary">
+                <span>View Collection</span>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </a>
+            <a href="#contact" class="btn btn-secondary">
+                <span>Contact Us</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Products Section -->
+<section class="section" id="products">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge">Our Collection</div>
+            <h2 class="section-title">Planet-Inspired Lamps</h2>
+            <p class="section-description">Each lamp is meticulously crafted to echo celestial beauty. Designed in-house, built to last.</p>
+        </div>
+
+        <div class="products-grid">
+            <!-- Product 1: Terra -->
+            <article class="product-card">
+                <div class="product-image">
+                    <div class="planet-backplate" aria-hidden="true"></div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 300'%3E%3Cdefs%3E%3ClinearGradient id='lamp1' x1='0%25' y1='0%25' x2='0%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23C4A57B'/%3E%3Cstop offset='100%25' style='stop-color:%23A67C52'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='100' cy='80' r='40' fill='url(%23lamp1)' opacity='0.9'/%3E%3Crect x='90' y='120' width='20' height='100' fill='url(%23lamp1)' opacity='0.7'/%3E%3Cellipse cx='100' cy='230' rx='50' ry='15' fill='%23A67C52' opacity='0.5'/%3E%3C/svg%3E" alt="Terra Lamp" class="lamp-img">
+                    <div class="product-badge">Signature</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Terra</h3>
+                    <div class="product-price">Inquire for Pricing</div>
+                    <p class="product-description">Inspired by Earth's warm glow. Ambient light with adjustable intensity.</p>
+                    <ul class="product-features">
+                        <li>Hand-brushed brass finish</li>
+                        <li>Dimmable LED technology</li>
+                        <li>12" diameter, 18" height</li>
+                    </ul>
+                    <a href="#contact" class="product-cta" data-product="Terra Lamp">
+                        <span>Inquire Now</span>
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Product 2: Luna -->
+            <article class="product-card">
+                <div class="product-image">
+                    <div class="planet-backplate" aria-hidden="true"></div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 300'%3E%3Cdefs%3E%3CradialGradient id='lamp2'%3E%3Cstop offset='0%25' style='stop-color:%23F3F3F5'/%3E%3Cstop offset='100%25' style='stop-color:%23A0A8B8'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='100' cy='70' r='50' fill='url(%23lamp2)' opacity='0.9'/%3E%3Cpath d='M 80 120 Q 100 140 120 120' fill='none' stroke='%23A0A8B8' stroke-width='3'/%3E%3Crect x='95' y='140' width='10' height='80' fill='%23A0A8B8' opacity='0.7'/%3E%3Cellipse cx='100' cy='230' rx='45' ry='12' fill='%23A0A8B8' opacity='0.5'/%3E%3C/svg%3E" alt="Luna Lamp" class="lamp-img">
+                    <div class="product-badge">Premium</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Luna</h3>
+                    <div class="product-price">Inquire for Pricing</div>
+                    <p class="product-description">Moonlit elegance. Soft, diffused light for serene environments.</p>
+                    <ul class="product-features">
+                        <li>Frosted glass sphere</li>
+                        <li>Warm white 2700K</li>
+                        <li>14" diameter, 22" height</li>
+                    </ul>
+                    <a href="#contact" class="product-cta" data-product="Luna Lamp">
+                        <span>Inquire Now</span>
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+
+            <!-- Product 3: Sol -->
+            <article class="product-card">
+                <div class="product-image">
+                    <div class="planet-backplate" aria-hidden="true"></div>
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 300'%3E%3Cdefs%3E%3CradialGradient id='lamp3'%3E%3Cstop offset='0%25' style='stop-color:%23FFD700'/%3E%3Cstop offset='100%25' style='stop-color:%23FFA500'/%3E%3C/radialGradient%3E%3C/defs%3E%3Ccircle cx='100' cy='75' r='45' fill='url(%23lamp3)' opacity='0.95'/%3E%3Cline x1='100' y1='30' x2='100' y2='10' stroke='%23FFD700' stroke-width='2'/%3E%3Cline x1='100' y1='120' x2='100' y2='140' stroke='%23FFD700' stroke-width='2'/%3E%3Cline x1='55' y1='75' x2='35' y2='75' stroke='%23FFD700' stroke-width='2'/%3E%3Cline x1='145' y1='75' x2='165' y2='75' stroke='%23FFD700' stroke-width='2'/%3E%3Crect x='92' y='150' width='16' height='70' fill='%23A67C52' opacity='0.7'/%3E%3Cellipse cx='100' cy='230' rx='48' ry='14' fill='%23A67C52' opacity='0.5'/%3E%3C/svg%3E" alt="Sol Lamp" class="lamp-img">
+                    <div class="product-badge">Exclusive</div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Sol</h3>
+                    <div class="product-price">Inquire for Pricing</div>
+                    <p class="product-description">Solar radiance captured. Vibrant, energizing light for creative spaces.</p>
+                    <ul class="product-features">
+                        <li>Amber glass with brass rays</li>
+                        <li>Adjustable color temperature</li>
+                        <li>16" diameter, 24" height</li>
+                    </ul>
+                    <a href="#contact" class="product-cta" data-product="Sol Lamp">
+                        <span>Inquire Now</span>
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Reviews Section -->
+<section class="section" id="reviews">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge">Testimonials</div>
+            <h2 class="section-title">Client Experiences</h2>
+            <p class="section-description">We value your feedback. Share your experience with Terra Lume.</p>
+        </div>
+
+        <div class="reviews-container">
+            <div class="review-form">
+                <h3 class="form-title">Leave a Review</h3>
+                <form id="reviewForm">
+                    <div class="form-group">
+                        <label for="reviewName" class="form-label">Name *</label>
+                        <input type="text" id="reviewName" class="form-input" placeholder="Your name" required minlength="2" maxlength="50" autocomplete="name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reviewEmail" class="form-label">Email *</label>
+                        <input type="email" id="reviewEmail" class="form-input" placeholder="your@email.com" required autocomplete="email">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Rating *</label>
+                        <div class="rating-input" id="ratingInput" role="radiogroup" aria-label="Star rating">
+                            <button type="button" class="star-btn" data-rating="1" aria-label="1 star">★</button>
+                            <button type="button" class="star-btn" data-rating="2" aria-label="2 stars">★</button>
+                            <button type="button" class="star-btn" data-rating="3" aria-label="3 stars">★</button>
+                            <button type="button" class="star-btn" data-rating="4" aria-label="4 stars">★</button>
+                            <button type="button" class="star-btn" data-rating="5" aria-label="5 stars">★</button>
+                        </div>
+                        <input type="hidden" id="reviewRating" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="reviewMessage" class="form-label">Your Review *</label>
+                        <textarea id="reviewMessage" class="form-textarea" placeholder="Share your experience with Terra Lume..." required minlength="10" maxlength="500"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <span>Submit Review</span>
+                    </button>
+                </form>
+            </div>
+
+            <div class="reviews-list" id="reviewsList" role="region" aria-live="polite">
+                <div class="empty-state">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                    <p>No reviews yet. Be the first to share your experience!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section" id="contact">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-badge">Get in Touch</div>
+            <h2 class="section-title">Contact Us</h2>
+            <p class="section-description">Questions about our lamps? We respond within 48 hours.</p>
+        </div>
+
+        <div class="contact-form">
+            <form id="contactForm" action="https://formsubmit.co/terralume21@gmail.com" method="POST">
+                <input type="hidden" name="_next" value="/thank-you.html">
+                <input type="hidden" name="_subject" value="New Terra Lume Inquiry">
+                <input type="hidden" name="_captcha" value="false">
+                
+                <div class="form-group">
+                    <label for="contactName" class="form-label">Name *</label>
+                    <input type="text" id="contactName" name="name" class="form-input" placeholder="Your name" required minlength="2" maxlength="50" autocomplete="name">
+                </div>
+
+                <div class="form-group">
+                    <label for="contactEmail" class="form-label">Email *</label>
+                    <input type="email" id="contactEmail" name="email" class="form-input" placeholder="your@email.com" required autocomplete="email">
+                </div>
+
+                <div class="form-group">
+                    <label for="contactSubject" class="form-label">Subject *</label>
+                    <input type="text" id="contactSubject" name="subject" class="form-input" placeholder="What can we help with?" required minlength="5" maxlength="100">
+                </div>
+
+                <div class="form-group">
+                    <label for="contactMessage" class="form-label">Message *</label>
+                    <textarea id="contactMessage" name="message" class="form-textarea" placeholder="Tell us about your project..." required minlength="10" maxlength="1000"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="subscribe" name="subscribe" class="form-checkbox" value="yes">
+                        <label for="subscribe" class="checkbox-label">
+                            I'd like to receive occasional updates about new collections and limited releases. (Optional)
+                        </label>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%;">
+                    <span>Send Message</span>
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="assets/WhatsApp_Image_2025-11-14_at_5_imgupscaler.ai_General_2K-removebg-preview.png" alt="Space Lamps Logo" class="logo-img">
+                    <span>Terra Lume</span>
+                </div>
+                <p class="footer-description">Designer planet-inspired lamps. Quietly luxurious lighting since 2025.</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/terra_lume_7?utm_source=qr&igsh=MWFleHkxYzdsOXIxMQ==" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
+                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="2"/>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="footer-title">Collection</h4>
+                <div class="footer-links">
+                    <a href="#products" class="footer-link">All Lamps</a>
+                    <a href="#products" class="footer-link">Signature Series</a>
+                    <a href="#products" class="footer-link">Limited Editions</a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="footer-title">Company</h4>
+                <div class="footer-links">
+                    <a href="#home" class="footer-link">About</a>
+                    <a href="#reviews" class="footer-link">Reviews</a>
+                    <a href="#contact" class="footer-link">Contact</a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="footer-title">Support</h4>
+                <div class="footer-links">
+                    <a href="#" class="footer-link">Care Instructions</a>
+                    <a href="#" class="footer-link">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Terra Lume. All rights reserved. Handcrafted with precision.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+    <svg class="toast-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+    </svg>
+    <div class="toast-message" id="toastMessage">Success!</div>
+</div>
+
+<!-- Scroll to Top -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
+    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+    </svg>
+</button>
+
+<script>
+'use strict';
+
+// ==================== CONFIGURATION ====================
+const CONFIG = {
+    STORAGE_PREFIX: 'spacelamps_',
+    TOAST_DURATION: 4000,
+    SCROLL_THRESHOLD: 200,
+    LOADER_DURATION: 2000,
+    MAX_REVIEWS: 200,
+    FORMSUBMIT_EMAIL: 'terralume21@gmail.com' // Update this
+};
+
+// ==================== UTILITY FUNCTIONS ====================
+const Utils = {
+    escapeHtml(text) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#039;'
+        };
+        return text.replace(/[&<>"']/g, m => map[m]);
+    },
+
+    storage: {
+        get(key) {
+            try {
+                const item = localStorage.getItem(CONFIG.STORAGE_PREFIX + key);
+                return item ? JSON.parse(item) : null;
+            } catch (error) {
+                console.error('Storage get error:', error);
+                return null;
+            }
+        },
+        set(key, value) {
+            try {
+                localStorage.setItem(CONFIG.STORAGE_PREFIX + key, JSON.stringify(value));
+                return true;
+            } catch (error) {
+                console.error('Storage set error:', error);
+                return false;
+            }
+        }
+    },
+
+    debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    },
+
+    throttle(func, limit) {
+        let inThrottle;
+        return function(...args) {
+            if (!inThrottle) {
+                func.apply(this, args);
+                inThrottle = true;
+                setTimeout(() => inThrottle = false, limit);
+            }
+        };
+    },
+
+    isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    },
+
+    formatDate(date) {
+        return new Date(date).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    },
+
+    sanitizeString(str, maxLength) {
+        return this.escapeHtml(str.trim().substring(0, maxLength));
+    }
+};
+
+// ==================== STATE MANAGEMENT ====================
+const State = {
+    reviews: Utils.storage.get('reviews') || [],
+
+    addReview(review) {
+        this.reviews.unshift(review);
+        if (this.reviews.length > CONFIG.MAX_REVIEWS) {
+            this.reviews = this.reviews.slice(0, CONFIG.MAX_REVIEWS);
+        }
+        Utils.storage.set('reviews', this.reviews);
+    },
+
+    getReviews() {
+        return this.reviews;
+    },
+
+    exportReviewsCSV() {
+        if (this.reviews.length === 0) {
+            UI.showToast('No reviews to export', 'error');
+            return;
+        }
+
+        const headers = ['Date', 'Name', 'Email', 'Rating', 'Review'];
+        const rows = this.reviews.map(r => [
+            new Date(r.date).toISOString(),
+            r.name,
+            r.email,
+            r.rating,
+            r.message.replace(/"/g, '""')
+        ]);
+
+        const csv = [
+            headers.join(','),
+            ...rows.map(row => row.map(cell => `"${cell}"`).join(','))
+        ].join('\n');
+
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `spacelamps-reviews-${Date.now()}.csv`;
+        a.click();
+        URL.revokeObjectURL(url);
+
+        UI.showToast('Reviews exported successfully', 'success');
+    }
+};
+
+// ==================== UI COMPONENTS ====================
+const UI = {
+    showToast(message, type = 'success') {
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        
+        if (!toast || !toastMessage) return;
+
+        toastMessage.textContent = message;
+        toast.className = `toast ${type}`;
+        toast.classList.add('active');
+
+        setTimeout(() => {
+            toast.classList.remove('active');
+        }, CONFIG.TOAST_DURATION);
+    },
+
+    renderReviews() {
+        const reviewsList = document.getElementById('reviewsList');
+        if (!reviewsList) return;
+
+        const reviews = State.getReviews();
+
+        if (reviews.length === 0) {
+            reviewsList.innerHTML = `
+                <div class="empty-state">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                    <p>No reviews yet. Be the first to share your experience!</p>
+                </div>
+            `;
+            return;
+        }
+
+        const reviewsHTML = reviews.map(review => {
+            const stars = Array.from({ length: 5 }, (_, i) => 
+                `<svg class="star ${i < review.rating ? '' : 'empty'}" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>`
+            ).join('');
+
+            const initial = Utils.escapeHtml(review.name.charAt(0).toUpperCase());
+            const name = Utils.escapeHtml(review.name);
+            const message = Utils.escapeHtml(review.message);
+            const date = Utils.formatDate(review.date);
+
+            return `
+                <article class="review-card">
+                    <div class="review-header">
+                        <div class="review-avatar" aria-hidden="true">${initial}</div>
+                        <div class="review-author">
+                            <div class="review-name">${name}</div>
+                            <div class="review-date">${date}</div>
+                        </div>
+                        <div class="review-stars" role="img" aria-label="${review.rating} out of 5 stars">${stars}</div>
+                    </div>
+                    <p class="review-text">${message}</p>
+                </article>
+            `;
+        }).join('');
+
+        reviewsList.innerHTML = reviewsHTML;
+    }
+};
+
+// ==================== LOADER ====================
+const Loader = {
+    hide() {
+        const loader = document.getElementById('loader');
+        if (loader) {
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, CONFIG.LOADER_DURATION);
+        }
+    }
+};
+
+// ==================== HEADER ====================
+const Header = {
+    init() {
+        const header = document.getElementById('header');
+        if (!header) return;
+
+        const handleScroll = Utils.throttle(() => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        }, 100);
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+    }
+};
+
+// ==================== MOBILE MENU ====================
+const MobileMenu = {
+    init() {
+        const menuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        if (!menuBtn || !mobileMenu) return;
+
+        menuBtn.addEventListener('click', () => {
+            const isActive = menuBtn.classList.toggle('active');
+            mobileMenu.classList.toggle('active', isActive);
+            menuBtn.setAttribute('aria-expanded', isActive);
+            document.body.style.overflow = isActive ? 'hidden' : '';
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                menuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close on escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && menuBtn.classList.contains('active')) {
+                menuBtn.classList.remove('active');
+                mobileMenu.classList.remove('active');
+                menuBtn.setAttribute('aria-expanded', 'false');
+                document.body.style.overflow = '';
+            }
+        });
+    }
+};
+
+// ==================== SCROLL TO TOP ====================
+const ScrollToTop = {
+    init() {
+        const btn = document.getElementById('scrollTop');
+        if (!btn) return;
+
+        const handleScroll = Utils.throttle(() => {
+            if (window.pageYOffset > CONFIG.SCROLL_THRESHOLD) {
+                btn.classList.add('visible');
+            } else {
+                btn.classList.remove('visible');
+            }
+        }, 100);
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+
+        btn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+};
+
+// ==================== REVIEW FORM ====================
+const ReviewForm = {
+    init() {
+        const form = document.getElementById('reviewForm');
+        if (!form) return;
+
+        const ratingInput = document.getElementById('ratingInput');
+        const ratingValue = document.getElementById('reviewRating');
+        let selectedRating = 0;
+
+        // Star rating with keyboard support
+        ratingInput.querySelectorAll('.star-btn').forEach((btn, index) => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                selectedRating = parseInt(btn.dataset.rating);
+                ratingValue.value = selectedRating;
+
+                ratingInput.querySelectorAll('.star-btn').forEach((star, i) => {
+                    star.classList.toggle('active', i < selectedRating);
+                    star.setAttribute('aria-checked', i < selectedRating);
+                });
+            });
+
+            // Keyboard navigation
+            btn.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    const next = ratingInput.querySelectorAll('.star-btn')[Math.min(index + 1, 4)];
+                    next?.focus();
+                    next?.click();
+                } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    const prev = ratingInput.querySelectorAll('.star-btn')[Math.max(index - 1, 0)];
+                    prev?.focus();
+                    prev?.click();
+                }
+            });
+        });
+
+        // Form submission with rate limiting
+        let lastSubmit = 0;
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Rate limiting
+            const now = Date.now();
+            if (now - lastSubmit < 3000) {
+                UI.showToast('Please wait a moment before submitting again', 'error');
+                return;
+            }
+            lastSubmit = now;
+
+            const name = document.getElementById('reviewName').value.trim();
+            const email = document.getElementById('reviewEmail').value.trim();
+            const rating = parseInt(ratingValue.value);
+            const message = document.getElementById('reviewMessage').value.trim();
+
+            // Validation
+            if (!name || name.length < 2 || name.length > 50) {
+                UI.showToast('Please enter a valid name (2-50 characters)', 'error');
+                return;
+            }
+
+            if (!Utils.isValidEmail(email)) {
+                UI.showToast('Please enter a valid email address', 'error');
+                return;
+            }
+
+            if (!rating || rating < 1 || rating > 5) {
+                UI.showToast('Please select a rating', 'error');
+                return;
+            }
+
+            if (!message || message.length < 10 || message.length > 500) {
+                UI.showToast('Review must be between 10-500 characters', 'error');
+                return;
+            }
+
+            // Create review object
+            const review = {
+                name: Utils.sanitizeString(name, 50),
+                email: Utils.sanitizeString(email, 100),
+                rating,
+                message: Utils.sanitizeString(message, 500),
+                date: new Date().toISOString()
+            };
+
+            // Save review
+            State.addReview(review);
+            UI.renderReviews();
+            UI.showToast('Thank you for your review!', 'success');
+
+            // Reset form
+            form.reset();
+            ratingValue.value = '';
+            selectedRating = 0;
+            ratingInput.querySelectorAll('.star-btn').forEach(star => {
+                star.classList.remove('active');
+                star.setAttribute('aria-checked', 'false');
+            });
+
+            // Scroll to reviews
+            setTimeout(() => {
+                document.getElementById('reviewsList').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest'
+                });
+            }, 500);
+        });
+    }
+};
+
+// ==================== CONTACT FORM ====================
+const ContactForm = {
+    init() {
+        const form = document.getElementById('contactForm');
+        if (!form) return;
+
+        // Pre-fill subject from product inquiries
+        document.querySelectorAll('.product-cta').forEach(cta => {
+            cta.addEventListener('click', (e) => {
+                const productName = cta.dataset.product;
+                if (productName) {
+                    const subjectField = document.getElementById('contactSubject');
+                    if (subjectField) {
+                        subjectField.value = `Inquiry about ${productName}`;
+                    }
+                }
+            });
+        });
+
+        // Client-side validation before FormSubmit
+        form.addEventListener('submit', (e) => {
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const subject = document.getElementById('contactSubject').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+
+            // Validation
+            if (!name || name.length < 2 || name.length > 50) {
+                e.preventDefault();
+                UI.showToast('Please enter a valid name (2-50 characters)', 'error');
+                return;
+            }
+
+            if (!Utils.isValidEmail(email)) {
+                e.preventDefault();
+                UI.showToast('Please enter a valid email address', 'error');
+                return;
+            }
+
+            if (!subject || subject.length < 5 || subject.length > 100) {
+                e.preventDefault();
+                UI.showToast('Subject must be between 5-100 characters', 'error');
+                return;
+            }
+
+            if (!message || message.length < 10 || message.length > 1000) {
+                e.preventDefault();
+                UI.showToast('Message must be between 10-1000 characters', 'error');
+                return;
+            }
+
+            // If validation passes, form will submit to FormSubmit
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.querySelector('span').textContent = 'Sending...';
+            submitBtn.disabled = true;
+        });
+    }
+};
+
+// ==================== SMOOTH SCROLL ====================
+const SmoothScroll = {
+    init() {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#' || href.length <= 1) return;
+
+                e.preventDefault();
+                const target = document.querySelector(href);
+                
+                if (target) {
+                    const headerHeight = document.getElementById('header')?.offsetHeight || 0;
+                    const targetPosition = target.offsetTop - headerHeight;
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    }
+};
+
+// ==================== CARD HOVER EFFECT (DESKTOP ONLY) ====================
+const CardHover = {
+    init() {
+        if ('ontouchstart' in window) return; // Skip on touch devices
+
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+    }
+};
+
+// ==================== INTERSECTION OBSERVER (LAZY EFFECTS) ====================
+const LazyEffects = {
+    init() {
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for lazy animations
+        document.querySelectorAll('.product-card, .review-card, .feature-card').forEach(el => {
+            observer.observe(el);
+        });
+    }
+};
+
+// ==================== KEYBOARD NAVIGATION ENHANCEMENT ====================
+const KeyboardNav = {
+    init() {
+        // Add visible focus for keyboard users only
+        let usingMouse = false;
+
+        document.addEventListener('mousedown', () => {
+            usingMouse = true;
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Tab') {
+                usingMouse = false;
+            }
+        });
+
+        document.addEventListener('focusin', (e) => {
+            if (!usingMouse) {
+                e.target.classList.add('keyboard-focus');
+            }
+        });
+
+        document.addEventListener('focusout', (e) => {
+            e.target.classList.remove('keyboard-focus');
+        });
+    }
+};
+
+// ==================== INITIALIZE APP ====================
+function initApp() {
+    // Initialize components
+    Header.init();
+    MobileMenu.init();
+    ScrollToTop.init();
+    ReviewForm.init();
+    ContactForm.init();
+    SmoothScroll.init();
+    CardHover.init();
+    LazyEffects.init();
+    KeyboardNav.init();
+
+    // Render reviews
+    UI.renderReviews();
+
+    // Hide loader
+    Loader.hide();
+
+    // Add admin export button (optional - for development)
+    if (window.location.search.includes('admin=true')) {
+        const exportBtn = document.createElement('button');
+        exportBtn.textContent = 'Export Reviews CSV';
+        exportBtn.className = 'btn btn-secondary';
+        exportBtn.style.position = 'fixed';
+        exportBtn.style.bottom = '100px';
+        exportBtn.style.right = '20px';
+        exportBtn.style.zIndex = '9999';
+        exportBtn.onclick = () => State.exportReviewsCSV();
+        document.body.appendChild(exportBtn);
+    }
+
+    // Console signature
+    console.log('%c🌌 Terra Lume', 'font-size: 20px; font-weight: bold; color: #A67C52;');
+    console.log('%c✨ Celestial Illumination', 'font-size: 12px; color: #A0A8B8;');
+}
+
+// ==================== ERROR HANDLING ====================
+window.addEventListener('error', (e) => {
+    console.error('Global error:', e);
+});
+
+window.addEventListener('unhandledrejection', (e) => {
+    console.error('Unhandled promise rejection:', e);
+});
+
+// ==================== START APP ====================
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initApp);
+} else {
+    initApp();
+}
+
+
+</script>
+
+
+</body>
+</html>

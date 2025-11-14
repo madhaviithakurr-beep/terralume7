@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0B1020">
+    <title>Thank You — Space Lamps</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Cormorant+Garamond:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0B1020;
+            --bg-secondary: #111827;
+            --text-primary: #F3F3F5;
+            --text-secondary: #A0A8B8;
+            --accent-primary: #A67C52;
+            --accent-secondary: #C4A57B;
+            --accent-glow: rgba(166, 124, 82, 0.4);
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --ease: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .thank-you-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stars {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.3), transparent),
+                radial-gradient(2px 2px at 60px 70px, rgba(255, 255, 255, 0.2), transparent),
+                radial-gradient(1px 1px at 50px 50px, rgba(255, 255, 255, 0.4), transparent);
+            background-size: 200px 200px;
+            background-repeat: repeat;
+            animation: twinkle 40s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        .success-icon {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 2rem;
+            background: radial-gradient(circle at 35% 35%, var(--accent-secondary), var(--accent-primary));
+            border-radius: 50%;
+            box-shadow: 0 0 40px var(--accent-glow), 0 0 80px rgba(166, 124, 82, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: scaleIn 0.6s var(--ease) forwards, float 3s ease-in-out infinite;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .success-icon svg {
+            width: 50px;
+            height: 50px;
+            stroke: white;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .checkmark {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: drawCheck 0.8s 0.3s ease-out forwards;
+        }
+
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+        }
+
+        h1 {
+            font-family: var(--font-serif);
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            font-weight: 400;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s 0.2s var(--ease) both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        p {
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s 0.4s var(--ease) both;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s 0.6s var(--ease) both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            transition: all 0.3s var(--ease);
+            text-decoration: none;
+            min-height: 44px;
+        }
+
+        .btn-primary {
+            background: var(--accent-primary);
+            color: white;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid rgba(160, 168, 184, 0.3);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            transform: translateY(-3px);
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--accent-primary);
+            opacity: 0;
+            animation: confettiFall 3s linear infinite;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+
+        .confetti:nth-child(1) { left: 10%; animation-delay: 0s; background: var(--accent-primary); }
+        .confetti:nth-child(2) { left: 20%; animation-delay: 0.5s; background: var(--accent-secondary); }
+        .confetti:nth-child(3) { left: 30%; animation-delay: 1s; background: var(--accent-primary); }
+        .confetti:nth-child(4) { left: 40%; animation-delay: 1.5s; background: var(--accent-secondary); }
+        .confetti:nth-child(5) { left: 50%; animation-delay: 2s; background: var(--accent-primary); }
+        .confetti:nth-child(6) { left: 60%; animation-delay: 0.3s; background: var(--accent-secondary); }
+        .confetti:nth-child(7) { left: 70%; animation-delay: 0.8s; background: var(--accent-primary); }
+        .confetti:nth-child(8) { left: 80%; animation-delay: 1.3s; background: var(--accent-secondary); }
+        .confetti:nth-child(9) { left: 90%; animation-delay: 1.8s; background: var(--accent-primary); }
+    </style>
+</head>
+<body>
+    <div class="thank-you-container">
+        <div class="stars" aria-hidden="true"></div>
+        
+        <!-- Confetti (respects reduced motion) -->
+        <div class="confetti" aria-hidden="true"></div>
+        <div class="confetti" aria-hidden="true"></div>
+        <div class="confetti" aria-hidden="true"></div>
+        <div class="confetti" aria-hidden="true"></div>
+        <div class="confetti" aria-hidden="true"></div>
+        <div class="confetti" aria-hidden="true"></div>
+        <div class="confetti" aria-hidden="true"></div>
+        <div class="confetti" aria-hidden="true"></div>
+        <div class="confetti" aria-hidden="true"></div>
+
+        <div class="success-icon" role="img" aria-label="Success">
+            <svg viewBox="0 0 50 50">
+                <path class="checkmark" d="M10 25 L20 35 L40 15" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+
+        <div class="content">
+            <h1>Message Received</h1>
+            <p>Thank you for contacting Space Lamps. We'll respond within 48 hours to discuss your lighting project.</p>
+            
+            <div class="cta-group">
+                <a href="index.html" class="btn btn-primary">
+                    <span>Back to Home</span>
+                </a>
+                <a href="index.html#products" class="btn btn-secondary">
+                    <span>View Collection</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
