@@ -16,7 +16,7 @@
     <meta property="og:title" content="Terra Lume — Light Up Every Moment">
     <meta property="og:description" content="Premium designer lamps inspired by celestial bodies.">
     <meta property="og:image" content="https://terralume7.vercel.app/og-image.jpg">
-    <meta property="og:url" content="https://terralume7.vercel.app.com">
+    <meta property="og:url" content="https://terralume7.vercel.app">
     
     <!-- Preconnect -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1574,43 +1574,45 @@ a {
 
         <div class="contact-form">
             <form id="contactForm" action="https://formsubmit.co/terralume21@gmail.com" method="POST">
-                <input type="hidden" name="_next" value="/thank-you.html">
-                <input type="hidden" name="_subject" value="New Terra Lume Inquiry">
-                <input type="hidden" name="_captcha" value="false">
-                
-                <div class="form-group">
-                    <label for="contactName" class="form-label">Name *</label>
-                    <input type="text" id="contactName" name="name" class="form-input" placeholder="Your name" required minlength="2" maxlength="50" autocomplete="name">
-                </div>
+    <!-- FormSubmit Configuration -->
+    <input type="hidden" name="_next" value="https://terralume7.vercel.app/thank-you.html">
+    <input type="hidden" name="_subject" value="New Terra Lume Inquiry">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="box">
+    
+    <div class="form-group">
+        <label for="contactName" class="form-label">Name *</label>
+        <input type="text" id="contactName" name="name" class="form-input" placeholder="Your name" required minlength="2" maxlength="50" autocomplete="name">
+    </div>
 
-                <div class="form-group">
-                    <label for="contactEmail" class="form-label">Email *</label>
-                    <input type="email" id="contactEmail" name="email" class="form-input" placeholder="your@email.com" required autocomplete="email">
-                </div>
+    <div class="form-group">
+        <label for="contactEmail" class="form-label">Email *</label>
+        <input type="email" id="contactEmail" name="email" class="form-input" placeholder="your@email.com" required autocomplete="email">
+    </div>
 
-                <div class="form-group">
-                    <label for="contactSubject" class="form-label">Subject *</label>
-                    <input type="text" id="contactSubject" name="subject" class="form-input" placeholder="What can we help with?" required minlength="5" maxlength="100">
-                </div>
+    <div class="form-group">
+        <label for="contactSubject" class="form-label">Subject *</label>
+        <input type="text" id="contactSubject" name="subject" class="form-input" placeholder="What can we help with?" required minlength="5" maxlength="100">
+    </div>
 
-                <div class="form-group">
-                    <label for="contactMessage" class="form-label">Message *</label>
-                    <textarea id="contactMessage" name="message" class="form-textarea" placeholder="Tell us about your project..." required minlength="10" maxlength="1000"></textarea>
-                </div>
+    <div class="form-group">
+        <label for="contactMessage" class="form-label">Message *</label>
+        <textarea id="contactMessage" name="message" class="form-textarea" placeholder="Tell us about your project..." required minlength="10" maxlength="1000"></textarea>
+    </div>
 
-                <div class="form-group">
-                    <div class="checkbox-group">
-                        <input type="checkbox" id="subscribe" name="subscribe" class="form-checkbox" value="yes">
-                        <label for="subscribe" class="checkbox-label">
-                            I'd like to receive occasional updates about new collections and limited releases. (Optional)
-                        </label>
-                    </div>
-                </div>
+    <div class="form-group">
+        <div class="checkbox-group">
+            <input type="checkbox" id="subscribe" name="subscribe" class="form-checkbox" value="yes">
+            <label for="subscribe" class="checkbox-label">
+                I'd like to receive occasional updates about new collections and limited releases. (Optional)
+            </label>
+        </div>
+    </div>
 
-                <button type="submit" class="btn btn-primary" style="width: 100%;">
-                    <span>Send Message</span>
-                </button>
-            </form>
+    <button type="submit" class="btn btn-primary" style="width: 100%;">
+        <span>Send Message</span>
+    </button>
+</form>
         </div>
     </div>
 </section>
