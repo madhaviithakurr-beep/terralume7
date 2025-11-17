@@ -819,7 +819,223 @@ a {
     border: 1px solid var(--border);
     z-index: 3;
 }
+/* ==================== PRODUCT CAROUSEL ==================== */
 
+.product-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    touch-action: pan-y pinch-zoom; /* Allow vertical scroll, prevent horizontal interference */
+}
+
+.carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+}
+
+.carousel-track.dragging {
+    transition: none; /* Disable transition while dragging */
+    cursor: grabbing;
+}
+
+.carousel-slide {
+    position: relative;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-slide .lamp-img {
+    user-select: none;
+    pointer-events: none; /* Prevent image drag interference */
+}
+
+/* Carousel Navigation Arrows */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    width: 40px;
+    height: 40px;
+    background: rgba(11, 16, 32, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(166, 124, 82, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: all 0.3s var(--ease);
+    color: var(--text-primary);
+}
+
+.product-card:hover .carousel-nav,
+.product-card:focus-within .carousel-nav {
+    opacity: 1;
+}
+
+.carousel-nav:hover,
+.carousel-nav:focus-visible {
+    background: rgba(166, 124, 82, 0.9);
+    border-color: var(--accent-primary);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+}
+
+.carousel-nav:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-nav.prev {
+    left: var(--space-md);
+}
+
+.carousel-nav.next {
+    right: var(--space-md);
+}
+
+.carousel-nav svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 2.5;
+}
+
+.carousel-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Carousel Indicators (Dots) */
+.carousel-indicators {
+    position: absolute;
+    bottom: var(--space-md);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: var(--space-xs);
+    z-index: 10;
+    padding: var(--space-xs) var(--space-md);
+    background: rgba(11, 16, 32, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-full);
+    border: 1px solid rgba(166, 124, 82, 0.2);
+}
+
+.carousel-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s var(--ease);
+    padding: 0;
+}
+
+.carousel-dot:hover {
+    background: rgba(255, 255, 255, 0.6);
+    transform: scale(1.2);
+}
+
+.carousel-dot.active {
+    background: var(--accent-primary);
+    width: 24px;
+    border-radius: var(--radius-full);
+    box-shadow: 0 0 10px var(--accent-glow);
+}
+
+.carousel-dot:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+}
+
+/* Auto-play pause indicator */
+.carousel-pause-indicator {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    z-index: 10;
+    width: 32px;
+    height: 32px;
+    background: rgba(11, 16, 32, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(166, 124, 82, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease);
+    pointer-events: none;
+}
+
+.carousel-pause-indicator.visible {
+    opacity: 1;
+}
+
+.carousel-pause-indicator svg {
+    width: 14px;
+    height: 14px;
+    fill: var(--accent-primary);
+}
+
+/* Loading skeleton for lazy images */
+.carousel-slide.loading .lamp-img {
+    opacity: 0;
+}
+
+.carousel-slide.loaded .lamp-img {
+    opacity: 1;
+    transition: opacity 0.4s var(--ease);
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+    .carousel-nav {
+        width: 36px;
+        height: 36px;
+    }
+    
+    .carousel-nav.prev {
+        left: var(--space-sm);
+    }
+    
+    .carousel-nav.next {
+        right: var(--space-sm);
+    }
+    
+    .carousel-nav svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .carousel-track {
+        transition: none;
+    }
+    
+    .carousel-dot,
+    .carousel-nav {
+        transition: none;
+    }
+}
 .product-info {
     padding: var(--space-lg);
 }
@@ -1145,7 +1361,19 @@ a {
         grid-column: auto;
     }
 }
-
+.carousel-counter {
+    position: absolute;
+    bottom: var(--space-md);
+    right: var(--space-md);
+    padding: var(--space-xs) var(--space-md);
+    background: rgba(11, 16, 32, 0.7);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-full);
+    font-size: var(--font-xs);
+    font-weight: 600;
+    color: var(--text-primary);
+    border: 1px solid rgba(166, 124, 82, 0.3);
+}
 .footer-logo {
     display: flex;
     align-items: center;
@@ -1429,9 +1657,9 @@ a {
         <div class="hero-planet-orb"></div>
     </div>
     <div class="hero-content">
-        <div class="hero-badge">Designer Lighting</div>
-        <h1 class="hero-title">Celestial Illumination</h1>
-        <p class="hero-description">Planet-inspired designer lamps. Quietly luxurious, tactile lighting crafted for discerning spaces.</p>
+        <div class="hero-badge">The Cosmos, Captured in Light</div>
+        <h1 class="hero-title">Illuminate your world with the beauty of planets.</h1>
+        <p class="hero-description">Handcrafted lamps inspired by celestial design — blending art, science, and soft ambient light into one timeless creation.</p>
         <div class="hero-ctas">
             <a href="#products" class="btn btn-primary">
                 <span>View Collection</span>
@@ -1450,29 +1678,102 @@ a {
 <section class="section" id="products">
     <div class="container">
         <div class="section-header">
-            <div class="section-badge">Our Collection</div>
-            <h2 class="section-title">Planet-Inspired Lamps</h2>
-            <p class="section-description">Each lamp is meticulously crafted to echo celestial beauty. Designed in-house, built to last.</p>
+            <div class="section-badge">Our Planet Collection</div>
+            <h2 class="section-title">Every lamp represents a planet — crafted with its own texture, tone, and glow pattern.</h2>
+            <p class="section-description">Space Lamps transforms cosmic wonder into modern home decor. Each lamp is crafted with precision and emotion — designed to glow like a planet suspended in your space.</p>
         </div>
 
         <div class="products-grid">
-            <!-- Product 1: Terra -->
+                    <!-- Product 1: Terra -->
             <article class="product-card">
                 <div class="product-image">
                     <div class="planet-backplate" aria-hidden="true"></div>
-                    <!-- NEW: Real Photo -->
-                    <img src="assets/lamps/terra-lamp.webp" 
-                         alt="Terra Lamp - Hand-brushed brass designer table lamp" 
-                         class="lamp-img" 
-                         loading="lazy"
-                         width="800" 
-                         height="800">         
+                    
+                    <!-- NEW: Carousel Container -->
+                    <div class="product-carousel" data-carousel>
+                        <div class="carousel-track">
+                            <!-- Slide 1 -->
+                            <div class="carousel-slide">
+                                <img src="assets/lamps/terra/terra-1.webp" 
+                                    alt="Terra Lamp - Front view" 
+                                    class="lamp-img" 
+                                    loading="lazy"
+                                    width="800" 
+                                    height="800">
+                            </div>
+                            
+                            <!-- Slide 2 -->
+                            <div class="carousel-slide">
+                                <img src="assets/lamps/terra/terra-2.webp" 
+                                    alt="Terra Lamp - Side angle" 
+                                    class="lamp-img" 
+                                    loading="lazy"
+                                    width="800" 
+                                    height="800">
+                            </div>
+                            
+                            <!-- Slide 3 -->
+                            <div class="carousel-slide">
+                                <img src="assets/lamps/terra/terra-3.webp" 
+                                    alt="Terra Lamp - Detail shot" 
+                                    class="lamp-img" 
+                                    loading="lazy"
+                                    width="800" 
+                                    height="800">
+                            </div>
+                            
+                            <!-- Slide 4 -->
+                            <div class="carousel-slide">
+                                <img src="assets/lamps/terra/terra-4.webp" 
+                                    alt="Terra Lamp - Lifestyle context" 
+                                    class="lamp-img" 
+                                    loading="lazy"
+                                    width="800" 
+                                    height="800">
+                            </div>
+                        </div>
+                        
+                        <!-- Navigation Arrows -->
+                        <button class="carousel-nav prev" aria-label="Previous image">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button class="carousel-nav next" aria-label="Next image">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Dot Indicators -->
+                        <div class="carousel-indicators" role="tablist" aria-label="Product images">
+                            <button class="carousel-dot active" aria-label="Image 1" role="tab" aria-selected="true"></button>
+                            <button class="carousel-dot" aria-label="Image 2" role="tab" aria-selected="false"></button>
+                            <button class="carousel-dot" aria-label="Image 3" role="tab" aria-selected="false"></button>
+                            <button class="carousel-dot" aria-label="Image 4" role="tab" aria-selected="false"></button>
+                        </div>
+                        <!-- Add after carousel-indicators -->
+                        <div class="carousel-counter">
+                            <span class="current">1</span>/<span class="total">4</span>
+                        </div>
+                        
+                        <!-- Pause indicator (shown when user interacts) -->
+                        <div class="carousel-pause-indicator" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="6" y="4" width="4" height="16" rx="1"/>
+                                <rect x="14" y="4" width="4" height="16" rx="1"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
                     <div class="product-badge">Signature</div>
                 </div>
+                
+                <!-- Product info stays the same -->
                 <div class="product-info">
-                    <h3 class="product-name"></h3>
+                    <h3 class="product-name">Terra</h3>
                     <div class="product-price">Inquire for Pricing</div>
-                    <p class="product-description">Inspired by Earth's warm glow. Ambient light with adjustable intensity.</p>
+                    <p class="product-description"></p>
                     <ul class="product-features">
                         <li></li>
                     </ul>
@@ -1484,34 +1785,157 @@ a {
                     </a>
                 </div>
             </article>
-
-            <!-- Product 2: Luna -->
             <article class="product-card">
                 <div class="product-image">
                     <div class="planet-backplate" aria-hidden="true"></div>
-                    <!-- NEW: Real Photo -->
-                    <img src="assets/lamps/terra-lamp.webp" 
-                         alt="Terra Lamp - Hand-brushed brass designer table lamp" 
-                         class="lamp-img" 
-                         loading="lazy"
-                         width="800" 
-                         height="800">
-                    <div class="product-badge">Premium</div>
+                    
+                    <!-- NEW: Carousel Container -->
+                    <div class="product-carousel" data-carousel>
+                        <div class="carousel-track">
+                            <!-- Slide 1 -->
+                            <div class="carousel-slide">
+                                <img src="assets/lamps/terra/terra-1.webp" 
+                                    alt="Terra Lamp - Front view" 
+                                    class="lamp-img" 
+                                    loading="lazy"
+                                    width="800" 
+                                    height="800">
+                            </div>
+                            
+                            <!-- Slide 2 -->
+                            <div class="carousel-slide">
+                                <img src="assets/lamps/terra/terra-2.webp" 
+                                    alt="Terra Lamp - Side angle" 
+                                    class="lamp-img" 
+                                    loading="lazy"
+                                    width="800" 
+                                    height="800">
+                            </div>
+                            
+                            <!-- Slide 3 -->
+                            <div class="carousel-slide">
+                                <img src="assets/lamps/terra/terra-3.webp" 
+                                    alt="Terra Lamp - Detail shot" 
+                                    class="lamp-img" 
+                                    loading="lazy"
+                                    width="800" 
+                                    height="800">
+                            </div>
+                            
+                            <!-- Slide 4 -->
+                            <div class="carousel-slide">
+                                <img src="assets/lamps/terra/terra-4.webp" 
+                                    alt="Terra Lamp - Lifestyle context" 
+                                    class="lamp-img" 
+                                    loading="lazy"
+                                    width="800" 
+                                    height="800">
+                            </div>
+                        </div>
+                        
+                        <!-- Navigation Arrows -->
+                        <button class="carousel-nav prev" aria-label="Previous image">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button class="carousel-nav next" aria-label="Next image">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                        
+                        <!-- Dot Indicators -->
+                        <div class="carousel-indicators" role="tablist" aria-label="Product images">
+                            <button class="carousel-dot active" aria-label="Image 1" role="tab" aria-selected="true"></button>
+                            <button class="carousel-dot" aria-label="Image 2" role="tab" aria-selected="false"></button>
+                            <button class="carousel-dot" aria-label="Image 3" role="tab" aria-selected="false"></button>
+                            <button class="carousel-dot" aria-label="Image 4" role="tab" aria-selected="false"></button>
+                        </div>
+                        <!-- Add after carousel-indicators -->
+                        <div class="carousel-counter">
+                            <span class="current">1</span>/<span class="total">4</span>
+                        </div>
+                        
+                        <!-- Pause indicator (shown when user interacts) -->
+                        <div class="carousel-pause-indicator" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="6" y="4" width="4" height="16" rx="1"/>
+                                <rect x="14" y="4" width="4" height="16" rx="1"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="product-badge">Signature</div>
                 </div>
+                
+                <!-- Product info stays the same -->
                 <div class="product-info">
-                    <h3 class="product-name"></h3>
+                    <h3 class="product-name">Terra</h3>
                     <div class="product-price">Inquire for Pricing</div>
-                    <p class="product-description">Moonlit elegance. Soft, diffused light for serene environments.</p>
+                    <p class="product-description"></p>
                     <ul class="product-features">
                         <li></li>
                     </ul>
-                    <a href="#contact" class="product-cta" data-product="Luna Lamp">
+                    <a href="#contact" class="product-cta" data-product="Terra Lamp">
                         <span>Inquire Now</span>
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                         </svg>
                     </a>
                 </div>
+            </article>
+                        <!-- Product 2: Luna -->
+            <article class="product-card">
+                <div class="product-image">
+                    <div class="planet-backplate" aria-hidden="true"></div>
+                    
+                    <div class="product-carousel" data-carousel>
+                        <div class="carousel-track">
+                            <div class="carousel-slide">
+                                <img src="assets/lamps/luna/luna-1.webp" alt="Luna Lamp - View 1" class="lamp-img" loading="lazy">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/lamps/luna/luna-2.webp" alt="Luna Lamp - View 2" class="lamp-img" loading="lazy">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="assets/lamps/luna/luna-3.webp" alt="Luna Lamp - View 3" class="lamp-img" loading="lazy">
+                            </div>
+                        </div>
+                        
+                        <button class="carousel-nav prev" aria-label="Previous image">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        <button class="carousel-nav next" aria-label="Next image">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                        
+                        <div class="carousel-indicators" role="tablist">
+                            <button class="carousel-dot active" aria-label="Image 1"></button>
+                            <button class="carousel-dot" aria-label="Image 2"></button>
+                            <button class="carousel-dot" aria-label="Image 3"></button>
+                        </div>
+                        <!-- Add after carousel-indicators -->
+                        <div class="carousel-counter">
+                            <span class="current">1</span>/<span class="total">4</span>
+                        </div>
+                        
+                        <div class="carousel-pause-indicator" aria-hidden="true">
+                            <svg viewBox="0 0 24 24">
+                                <rect x="6" y="4" width="4" height="16" rx="1"/>
+                                <rect x="14" y="4" width="4" height="16" rx="1"/>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="product-badge">Premium</div>
+                </div>
+                
+                <!-- Rest of product info... -->
             </article>
         </div>
     </div>
@@ -1638,7 +2062,8 @@ a {
                     <img src="WhatsApp_Image_2025-11-14_at_5_imgupscaler.ai_General_2K-removebg-preview.png" alt="Space Lamps Logo" class="logo-img">
                     <span>Terra Lume</span>
                 </div>
-                <p class="footer-description">Designer planet-inspired lamps. Quietly luxurious lighting since 2025.</p>
+                <p class="footer-description">We craft planet-inspired lighting that blends cosmic aesthetics with human warmth. Every lamp is a balance of technology, art, and emotion.</p>
+                
                 <div class="social-links">
                     <a href="https://www.instagram.com/terra_lume_7?utm_source=qr&igsh=MWFleHkxYzdsOXIxMQ==" class="social-link" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -1678,7 +2103,7 @@ a {
         </div>
 
         <div class="footer-bottom">
-            <p>&copy; 2025 Terra Lume. All rights reserved. Handcrafted with precision.</p>
+            <p>&copy; © 2025 Space Lamps. All Rights Reserved. Designed with precision, inspired by the stars.</p>
         </div>
     </div>
 </footer>
@@ -2270,6 +2695,7 @@ function initApp() {
     CardHover.init();
     LazyEffects.init();
     KeyboardNav.init();
+    ProductCarousel.init();
 
     // Render reviews
     UI.renderReviews();
@@ -2310,7 +2736,285 @@ if (document.readyState === 'loading') {
 } else {
     initApp();
 }
+// ==================== PRODUCT CAROUSEL ====================
+const ProductCarousel = {
+    carousels: [],
+    
+    init() {
+        const carouselElements = document.querySelectorAll('[data-carousel]');
+        
+        carouselElements.forEach((element, index) => {
+            const carousel = new Carousel(element, index);
+            this.carousels.push(carousel);
+        });
+    },
+    
+    pauseAll() {
+        this.carousels.forEach(c => c.pause());
+    },
+    
+    resumeAll() {
+        this.carousels.forEach(c => c.resume());
+    }
+};
 
+class Carousel {
+    constructor(element, id) {
+        this.id = id;
+        this.element = element;
+        this.track = element.querySelector('.carousel-track');
+        this.slides = Array.from(element.querySelectorAll('.carousel-slide'));
+        this.prevBtn = element.querySelector('.carousel-nav.prev');
+        this.nextBtn = element.querySelector('.carousel-nav.next');
+        this.dots = Array.from(element.querySelectorAll('.carousel-dot'));
+        this.pauseIndicator = element.querySelector('.carousel-pause-indicator');
+        
+        this.currentIndex = 0;
+        this.totalSlides = this.slides.length;
+        this.autoplayInterval = null;
+        this.autoplayDelay = 4000; // 4 seconds
+        this.isPaused = false;
+        this.pauseTimeout = null;
+        
+        // Touch/drag properties
+        this.isDragging = false;
+        this.startPos = 0;
+        this.currentTranslate = 0;
+        this.prevTranslate = 0;
+        this.animationID = null;
+        this.currentSlideIndex = 0;
+        
+        this.init();
+    }
+    
+    init() {
+        if (this.totalSlides <= 1) {
+            // Hide controls if only one image
+            if (this.prevBtn) this.prevBtn.style.display = 'none';
+            if (this.nextBtn) this.nextBtn.style.display = 'none';
+            if (this.dots[0]) this.dots[0].parentElement.style.display = 'none';
+            return;
+        }
+        
+        this.attachEventListeners();
+        this.startAutoplay();
+        this.updateUI();
+    }
+    
+    attachEventListeners() {
+        // Arrow navigation
+        this.prevBtn?.addEventListener('click', () => this.prev());
+        this.nextBtn?.addEventListener('click', () => this.next());
+        
+        // Dot navigation
+        this.dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => this.goToSlide(index));
+        });
+        
+        // Keyboard navigation
+        this.element.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                this.prev();
+            } else if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                this.next();
+            }
+        });
+        
+        // Touch events
+        this.track.addEventListener('touchstart', this.touchStart.bind(this), { passive: true });
+        this.track.addEventListener('touchmove', this.touchMove.bind(this), { passive: true });
+        this.track.addEventListener('touchend', this.touchEnd.bind(this));
+        
+        // Mouse drag events (desktop)
+        this.track.addEventListener('mousedown', this.dragStart.bind(this));
+        this.track.addEventListener('mousemove', this.dragMove.bind(this));
+        this.track.addEventListener('mouseup', this.dragEnd.bind(this));
+        this.track.addEventListener('mouseleave', this.dragEnd.bind(this));
+        
+        // Pause autoplay on hover/focus
+        this.element.addEventListener('mouseenter', () => this.pauseTemporarily());
+        this.element.addEventListener('mouseleave', () => this.resumeAutoplay());
+        this.element.addEventListener('focusin', () => this.pauseTemporarily());
+        this.element.addEventListener('focusout', () => this.resumeAutoplay());
+        
+        // Pause when page is hidden
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.pause();
+            } else {
+                this.resume();
+            }
+        });
+    }
+    
+    // Touch handlers
+    touchStart(e) {
+        this.isDragging = true;
+        this.startPos = e.touches[0].clientX;
+        this.pauseTemporarily();
+        this.track.classList.add('dragging');
+    }
+    
+    touchMove(e) {
+        if (!this.isDragging) return;
+        const currentPosition = e.touches[0].clientX;
+        this.currentTranslate = this.prevTranslate + currentPosition - this.startPos;
+    }
+    
+    touchEnd() {
+        if (!this.isDragging) return;
+        this.isDragging = false;
+        this.track.classList.remove('dragging');
+        
+        const movedBy = this.currentTranslate - this.prevTranslate;
+        const threshold = this.element.offsetWidth * 0.2; // 20% swipe threshold
+        
+        if (movedBy < -threshold && this.currentIndex < this.totalSlides - 1) {
+            this.next();
+        } else if (movedBy > threshold && this.currentIndex > 0) {
+            this.prev();
+        } else {
+            this.goToSlide(this.currentIndex);
+        }
+        
+        this.currentTranslate = 0;
+        this.prevTranslate = 0;
+    }
+    
+    // Mouse drag handlers (desktop)
+    dragStart(e) {
+        this.isDragging = true;
+        this.startPos = e.clientX;
+        this.pauseTemporarily();
+        this.track.classList.add('dragging');
+        this.track.style.cursor = 'grabbing';
+    }
+    
+    dragMove(e) {
+        if (!this.isDragging) return;
+        e.preventDefault();
+        const currentPosition = e.clientX;
+        this.currentTranslate = this.prevTranslate + currentPosition - this.startPos;
+    }
+    
+    dragEnd() {
+        if (!this.isDragging) return;
+        this.isDragging = false;
+        this.track.classList.remove('dragging');
+        this.track.style.cursor = 'grab';
+        
+        const movedBy = this.currentTranslate - this.prevTranslate;
+        const threshold = this.element.offsetWidth * 0.2;
+        
+        if (movedBy < -threshold && this.currentIndex < this.totalSlides - 1) {
+            this.next();
+        } else if (movedBy > threshold && this.currentIndex > 0) {
+            this.prev();
+        } else {
+            this.goToSlide(this.currentIndex);
+        }
+        
+        this.currentTranslate = 0;
+        this.prevTranslate = 0;
+    }
+    
+    goToSlide(index) {
+        if (index < 0 || index >= this.totalSlides) return;
+        
+        this.currentIndex = index;
+        const offset = -index * 100;
+        this.track.style.transform = `translateX(${offset}%)`;
+        this.updateUI();
+        this.pauseTemporarily();
+    }
+    
+    next() {
+        const nextIndex = (this.currentIndex + 1) % this.totalSlides;
+        this.goToSlide(nextIndex);
+    }
+    
+    prev() {
+        const prevIndex = (this.currentIndex - 1 + this.totalSlides) % this.totalSlides;
+        this.goToSlide(prevIndex);
+    }
+    
+    updateUI() {
+        // Update dots
+        this.dots.forEach((dot, index) => {
+            const isActive = index === this.currentIndex;
+            dot.classList.toggle('active', isActive);
+            dot.setAttribute('aria-selected', isActive);
+        });
+        
+        // Update aria-labels
+        this.prevBtn?.setAttribute('aria-label', 
+            `Previous image (${this.currentIndex + 1} of ${this.totalSlides})`);
+        this.nextBtn?.setAttribute('aria-label', 
+            `Next image (${this.currentIndex + 1} of ${this.totalSlides})`);
+        // Update counter
+        const counter = this.element.querySelector('.carousel-counter .current');
+        if (counter) counter.textContent = this.currentIndex + 1;
+    }
+    
+    startAutoplay() {
+        if (this.totalSlides <= 1) return;
+        
+        this.autoplayInterval = setInterval(() => {
+            if (!this.isPaused) {
+                this.next();
+            }
+        }, this.autoplayDelay);
+    }
+    
+    pauseTemporarily() {
+        this.isPaused = true;
+        this.showPauseIndicator();
+        
+        // Clear existing timeout
+        if (this.pauseTimeout) {
+            clearTimeout(this.pauseTimeout);
+        }
+        
+        // Resume after 10 seconds of no interaction
+        this.pauseTimeout = setTimeout(() => {
+            this.resumeAutoplay();
+        }, 10000);
+    }
+    
+    resumeAutoplay() {
+        this.isPaused = false;
+        this.hidePauseIndicator();
+    }
+    
+    pause() {
+        this.isPaused = true;
+        this.showPauseIndicator();
+    }
+    
+    resume() {
+        this.isPaused = false;
+        this.hidePauseIndicator();
+    }
+    
+    showPauseIndicator() {
+        this.pauseIndicator?.classList.add('visible');
+    }
+    
+    hidePauseIndicator() {
+        this.pauseIndicator?.classList.remove('visible');
+    }
+    
+    destroy() {
+        if (this.autoplayInterval) {
+            clearInterval(this.autoplayInterval);
+        }
+        if (this.pauseTimeout) {
+            clearTimeout(this.pauseTimeout);
+        }
+    }
+}
 
 </script>
 
