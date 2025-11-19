@@ -1875,6 +1875,469 @@ a {
     background: var(--bg-tertiary);
     transform: rotate(90deg);
 }
+/* ==================== AUTHENTICATION UI ==================== */
+
+/* Account Button in Header */
+.account-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-xs) var(--space-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-full);
+    transition: all 0.3s var(--ease);
+    min-height: 44px;
+}
+
+.account-btn:hover,
+.account-btn:focus-visible {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.account-btn:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+}
+
+.account-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: var(--font-sm);
+    color: white;
+    flex-shrink: 0;
+}
+
+.account-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.account-name {
+    font-size: var(--font-sm);
+    font-weight: 600;
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+    .account-name {
+        display: none;
+    }
+}
+
+/* Account Dropdown */
+.account-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    min-width: 220px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    box-shadow: 0 10px 40px var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s var(--ease);
+    z-index: 100;
+}
+
+.account-dropdown.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.account-dropdown-header {
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--border);
+}
+
+.account-dropdown-email {
+    font-size: var(--font-xs);
+    color: var(--text-tertiary);
+    margin-top: 4px;
+}
+
+.account-dropdown-menu {
+    padding: var(--space-xs);
+}
+
+.account-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    border-radius: var(--radius-sm);
+    transition: all 0.2s var(--ease);
+    text-align: left;
+}
+
+.account-dropdown-item:hover,
+.account-dropdown-item:focus-visible {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.account-dropdown-item svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+}
+
+.account-dropdown-item.danger {
+    color: #EF4444;
+}
+
+.account-dropdown-item.danger:hover {
+    background: rgba(239, 68, 68, 0.1);
+}
+
+/* Login/Signup Buttons (when logged out) */
+.auth-buttons {
+    display: flex;
+    gap: var(--space-sm);
+}
+
+.auth-btn {
+    padding: var(--space-xs) var(--space-md);
+    font-size: var(--font-sm);
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    transition: all 0.3s var(--ease);
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-btn.login {
+    color: var(--text-primary);
+    border: 2px solid var(--border);
+}
+
+.auth-btn.login:hover {
+    border-color: var(--accent-primary);
+    color: var(--accent-primary);
+}
+
+.auth-btn.signup {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.auth-btn.signup:hover {
+    background: var(--accent-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--accent-glow);
+}
+
+/* Auth Modal Specific Styles */
+.auth-modal .modal-content {
+    max-width: 450px;
+}
+
+.auth-modal-header {
+    text-align: center;
+    padding: var(--space-2xl) var(--space-xl) var(--space-lg);
+}
+
+.auth-modal-icon {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto var(--space-md);
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--glow-md);
+}
+
+.auth-modal-icon svg {
+    width: 30px;
+    height: 30px;
+    stroke: white;
+    stroke-width: 2;
+}
+
+.auth-modal-title {
+    font-size: var(--font-3xl);
+    margin-bottom: var(--space-xs);
+}
+
+.auth-modal-subtitle {
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+}
+
+.auth-modal-body {
+    padding: 0 var(--space-xl) var(--space-2xl);
+}
+
+/* Google Sign-In Button */
+.google-signin-btn {
+    width: 100%;
+    padding: var(--space-md);
+    background: white;
+    color: #1F2937;
+    font-size: var(--font-base);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    border: 2px solid #E5E7EB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    transition: all 0.3s var(--ease);
+    margin-bottom: var(--space-lg);
+}
+
+.google-signin-btn:hover,
+.google-signin-btn:focus-visible {
+    border-color: var(--accent-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.google-signin-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+/* Divider */
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin: var(--space-lg) 0;
+    color: var(--text-tertiary);
+    font-size: var(--font-sm);
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+}
+
+/* Auth Form */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.auth-form .form-group {
+    margin-bottom: 0;
+}
+
+.password-input-wrapper {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    right: var(--space-md);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s var(--ease);
+}
+
+.toggle-password:hover {
+    background: var(--bg-tertiary);
+}
+
+.toggle-password svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--text-tertiary);
+}
+
+/* Submit Button */
+.auth-submit-btn {
+    width: 100%;
+    padding: var(--space-md);
+    background: var(--accent-primary);
+    color: white;
+    font-size: var(--font-base);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    margin-top: var(--space-sm);
+    transition: all 0.3s var(--ease);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    min-height: 48px;
+}
+
+.auth-submit-btn:hover:not(:disabled) {
+    background: var(--accent-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--accent-glow);
+}
+
+.auth-submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.auth-submit-btn .spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid white;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Auth Footer */
+.auth-footer {
+    text-align: center;
+    padding: var(--space-lg) var(--space-xl);
+    border-top: 1px solid var(--border);
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+}
+
+.auth-footer a {
+    color: var(--accent-primary);
+    font-weight: 600;
+    transition: color 0.3s var(--ease);
+}
+
+.auth-footer a:hover {
+    color: var(--accent-secondary);
+    text-decoration: underline;
+}
+
+/* Error Message */
+.auth-error {
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    border-radius: var(--radius-sm);
+    color: #EF4444;
+    font-size: var(--font-sm);
+    margin-bottom: var(--space-md);
+    display: none;
+}
+
+.auth-error.show {
+    display: block;
+    animation: slideInDown 0.3s var(--ease-out);
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Success Message */
+.auth-success {
+    padding: var(--space-sm) var(--space-md);
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    border-radius: var(--radius-sm);
+    color: #10B981;
+    font-size: var(--font-sm);
+    margin-bottom: var(--space-md);
+    display: none;
+}
+
+.auth-success.show {
+    display: block;
+    animation: slideInDown 0.3s var(--ease-out);
+}
+
+/* Protected Feature Overlay */
+.protected-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(11, 16, 32, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+}
+
+.protected-overlay.show {
+    display: flex;
+}
+
+.protected-message {
+    text-align: center;
+    padding: var(--space-xl);
+}
+
+.protected-message svg {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto var(--space-lg);
+    stroke: var(--accent-primary);
+}
+
+.protected-message h3 {
+    font-size: var(--font-2xl);
+    margin-bottom: var(--space-sm);
+}
+
+.protected-message p {
+    color: var(--text-secondary);
+    margin-bottom: var(--space-lg);
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+    .auth-modal .modal-content {
+        margin: var(--space-md);
+    }
+    
+    .auth-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .auth-btn {
+        width: 100%;
+    }
+}
 
 .modal-close:focus-visible {
     outline: 2px solid var(--accent-primary);
@@ -2310,98 +2773,48 @@ a {
                     </a>
                 </div>
             </article>
-            <article class="product-card">
+                        <!-- Product 1: Terra -->
+            <article class="product-card" data-product-id="terra">
                 <div class="product-image">
                     <div class="planet-backplate" aria-hidden="true"></div>
                     
-                    <!-- NEW: Carousel Container -->
-                    <div class="product-carousel" data-carousel>
-                        <div class="carousel-track">
-                            <!-- Slide 1 -->
-                            <div class="carousel-slide">
-                                <img src="assets/lamps/terra/terra-1.webp" 
-                                    alt="Terra Lamp - Front view" 
-                                    class="lamp-img" 
-                                    loading="lazy"
-                                    width="800" 
-                                    height="800">
-                            </div>
-                            
-                            <!-- Slide 2 -->
-                            <div class="carousel-slide">
-                                <img src="assets/lamps/terra/terra-2.webp" 
-                                    alt="Terra Lamp - Side angle" 
-                                    class="lamp-img" 
-                                    loading="lazy"
-                                    width="800" 
-                                    height="800">
-                            </div>
-                            
-                            <!-- Slide 3 -->
-                            <div class="carousel-slide">
-                                <img src="assets/lamps/terra/terra-3.webp" 
-                                    alt="Terra Lamp - Detail shot" 
-                                    class="lamp-img" 
-                                    loading="lazy"
-                                    width="800" 
-                                    height="800">
-                            </div>
-                            
-                            <!-- Slide 4 -->
-                            <div class="carousel-slide">
-                                <img src="assets/lamps/terra/terra-4.webp" 
-                                    alt="Terra Lamp - Lifestyle context" 
-                                    class="lamp-img" 
-                                    loading="lazy"
-                                    width="800" 
-                                    height="800">
-                            </div>
-                        </div>
-                        
-                        <!-- Navigation Arrows -->
-                        <button class="carousel-nav prev" aria-label="Previous image">
-                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
-                            </svg>
-                        </button>
-                        <button class="carousel-nav next" aria-label="Next image">
-                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </button>
-                        
-                        <!-- Dot Indicators -->
-                        <div class="carousel-indicators" role="tablist" aria-label="Product images">
-                            <button class="carousel-dot active" aria-label="Image 1" role="tab" aria-selected="true"></button>
-                            <button class="carousel-dot" aria-label="Image 2" role="tab" aria-selected="false"></button>
-                            <button class="carousel-dot" aria-label="Image 3" role="tab" aria-selected="false"></button>
-                            <button class="carousel-dot" aria-label="Image 4" role="tab" aria-selected="false"></button>
-                        </div>
-                        <!-- Add after carousel-indicators -->
-                        <div class="carousel-counter">
-                            <span class="current">1</span>/<span class="total">4</span>
-                        </div>
-                        
-                        <!-- Pause indicator (shown when user interacts) -->
-                        <div class="carousel-pause-indicator" aria-hidden="true">
-                            <svg viewBox="0 0 24 24">
-                                <rect x="6" y="4" width="4" height="16" rx="1"/>
-                                <rect x="14" y="4" width="4" height="16" rx="1"/>
-                            </svg>
-                        </div>
-                    </div>
+                    <!-- Wishlist Heart Button -->
+                    <button class="wishlist-btn" 
+                            data-product-id="terra" 
+                            aria-label="Add to wishlist"
+                            title="Add to wishlist">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Keep your carousel or single image here -->
+                    <img src="assets/lamps/terra-lamp.webp" 
+                        alt="Terra Lamp - Hand-brushed brass finish designer lamp" 
+                        class="lamp-img" 
+                        loading="lazy">
                     
                     <div class="product-badge">Signature</div>
                 </div>
                 
-                <!-- Product info stays the same -->
                 <div class="product-info">
                     <h3 class="product-name">Terra</h3>
                     <div class="product-price">Inquire for Pricing</div>
-                    <p class="product-description"></p>
+                    <p class="product-description">Inspired by Earth's warm glow. Ambient light with adjustable intensity.</p>
                     <ul class="product-features">
-                        <li></li>
+                        <li>Hand-brushed brass finish</li>
+                        <li>Dimmable LED technology</li>
+                        <li>12" diameter, 18" height</li>
                     </ul>
+                    
+                    <!-- NEW: Add to Cart Button -->
+                    <button class="add-to-cart-btn" data-product-id="terra">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <span>Add to Cart</span>
+                    </button>
+                    
                     <a href="#contact" class="product-cta" data-product="Terra Lamp">
                         <span>Inquire Now</span>
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -2410,57 +2823,55 @@ a {
                     </a>
                 </div>
             </article>
-                        <!-- Product 2: Luna -->
-            <article class="product-card">
+                        <!-- Product 1: Terra -->
+            <article class="product-card" data-product-id="terra">
                 <div class="product-image">
                     <div class="planet-backplate" aria-hidden="true"></div>
                     
-                    <div class="product-carousel" data-carousel>
-                        <div class="carousel-track">
-                            <div class="carousel-slide">
-                                <img src="assets/lamps/luna/luna-1.webp" alt="Luna Lamp - View 1" class="lamp-img" loading="lazy">
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="assets/lamps/luna/luna-2.webp" alt="Luna Lamp - View 2" class="lamp-img" loading="lazy">
-                            </div>
-                            <div class="carousel-slide">
-                                <img src="assets/lamps/luna/luna-3.webp" alt="Luna Lamp - View 3" class="lamp-img" loading="lazy">
-                            </div>
-                        </div>
-                        
-                        <button class="carousel-nav prev" aria-label="Previous image">
-                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
-                            </svg>
-                        </button>
-                        <button class="carousel-nav next" aria-label="Next image">
-                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </button>
-                        
-                        <div class="carousel-indicators" role="tablist">
-                            <button class="carousel-dot active" aria-label="Image 1"></button>
-                            <button class="carousel-dot" aria-label="Image 2"></button>
-                            <button class="carousel-dot" aria-label="Image 3"></button>
-                        </div>
-                        <!-- Add after carousel-indicators -->
-                        <div class="carousel-counter">
-                            <span class="current">1</span>/<span class="total">4</span>
-                        </div>
-                        
-                        <div class="carousel-pause-indicator" aria-hidden="true">
-                            <svg viewBox="0 0 24 24">
-                                <rect x="6" y="4" width="4" height="16" rx="1"/>
-                                <rect x="14" y="4" width="4" height="16" rx="1"/>
-                            </svg>
-                        </div>
-                    </div>
+                    <!-- Wishlist Heart Button -->
+                    <button class="wishlist-btn" 
+                            data-product-id="terra" 
+                            aria-label="Add to wishlist"
+                            title="Add to wishlist">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </button>
                     
-                    <div class="product-badge">Premium</div>
+                    <!-- Keep your carousel or single image here -->
+                    <img src="assets/lamps/terra-lamp.webp" 
+                        alt="Terra Lamp - Hand-brushed brass finish designer lamp" 
+                        class="lamp-img" 
+                        loading="lazy">
+                    
+                    <div class="product-badge">Signature</div>
                 </div>
                 
-                <!-- Rest of product info... -->
+                <div class="product-info">
+                    <h3 class="product-name">Terra</h3>
+                    <div class="product-price">Inquire for Pricing</div>
+                    <p class="product-description">Inspired by Earth's warm glow. Ambient light with adjustable intensity.</p>
+                    <ul class="product-features">
+                        <li>Hand-brushed brass finish</li>
+                        <li>Dimmable LED technology</li>
+                        <li>12" diameter, 18" height</li>
+                    </ul>
+                    
+                    <!-- NEW: Add to Cart Button -->
+                    <button class="add-to-cart-btn" data-product-id="terra">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <span>Add to Cart</span>
+                    </button>
+                    
+                    <a href="#contact" class="product-cta" data-product="Terra Lamp">
+                        <span>Inquire Now</span>
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        </svg>
+                    </a>
+                </div>
             </article>
         </div>
     </div>
@@ -2632,6 +3043,116 @@ a {
         </div>
     </div>
 </footer>
+<!-- Login Modal -->
+<div class="modal-backdrop auth-modal" id="loginModal">
+    <div class="modal-content">
+        <div class="auth-modal-header">
+            <div class="auth-modal-icon">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/>
+                </svg>
+            </div>
+            <h2 class="auth-modal-title">Welcome Back</h2>
+            <p class="auth-modal-subtitle">Log in to your account</p>
+            <button class="modal-close" aria-label="Close login modal" style="position: absolute; top: var(--space-lg); right: var(--space-lg);">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="auth-modal-body">
+            <div class="auth-error" id="loginError"></div>
+            
+            <form class="auth-form" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail" class="form-label">Email</label>
+                    <input type="email" id="loginEmail" class="form-input" placeholder="your@email.com" required autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword" class="form-label">Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required autocomplete="current-password" minlength="6">
+                        <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <button type="submit" class="auth-submit-btn" id="loginSubmitBtn">
+                    <span>Log In</span>
+                </button>
+            </form>
+        </div>
+        
+        <div class="auth-footer">
+            Don't have an account? <a href="#" id="switchToSignup">Sign up</a>
+        </div>
+    </div>
+</div>
+
+<!-- Signup Modal -->
+<div class="modal-backdrop auth-modal" id="signupModal">
+    <div class="modal-content">
+        <div class="auth-modal-header">
+            <div class="auth-modal-icon">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                </svg>
+            </div>
+            <h2 class="auth-modal-title">Create Account</h2>
+            <p class="auth-modal-subtitle">Join Terra Lume today</p>
+            <button class="modal-close" aria-label="Close signup modal" style="position: absolute; top: var(--space-lg); right: var(--space-lg);">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="auth-modal-body">
+            <div class="auth-error" id="signupError"></div>
+            <div class="auth-success" id="signupSuccess"></div>
+            
+            <form class="auth-form" id="signupForm">
+                <div class="form-group">
+                    <label for="signupName" class="form-label">Full Name</label>
+                    <input type="text" id="signupName" class="form-input" placeholder="John Doe" required autocomplete="name" minlength="2" maxlength="50">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signupEmail" class="form-label">Email</label>
+                    <input type="email" id="signupEmail" class="form-input" placeholder="your@email.com" required autocomplete="email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="signupPassword" class="form-label">Password</label>
+                    <div class="password-input-wrapper">
+                        <input type="password" id="signupPassword" class="form-input" placeholder="••••••••" required autocomplete="new-password" minlength="6">
+                        <button type="button" class="toggle-password" aria-label="Toggle password visibility">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <small style="font-size: var(--font-xs); color: var(--text-tertiary); margin-top: 4px; display: block;">Minimum 6 characters</small>
+                </div>
+                
+                <button type="submit" class="auth-submit-btn" id="signupSubmitBtn">
+                    <span>Create Account</span>
+                </button>
+            </form>
+        </div>
+        
+        <div class="auth-footer">
+            Already have an account? <a href="#" id="switchToLogin">Log in</a>
+        </div>
+    </div>
+</div>
 
 <!-- Toast Notification -->
 <div class="toast" id="toast" role="status" aria-live="polite">
@@ -3221,6 +3742,7 @@ function initApp() {
     LazyEffects.init();
     KeyboardNav.init();
     ProductCarousel.init();
+    SimpleAuth.init();
     ShopManager.init();
 
     // Render reviews
@@ -3869,6 +4391,472 @@ const ContactFormEnhanced = {
 
 // Merge with existing ContactForm
 Object.assign(ContactForm, ContactFormEnhanced);
+
+// ==================== SIMPLE AUTHENTICATION (NO FIREBASE NEEDED) ====================
+const SimpleAuth = {
+    currentUser: null,
+    
+    init() {
+        // Check if user is logged in
+        this.currentUser = Utils.storage.get('currentUser');
+        this.updateUI(this.currentUser);
+        
+        if (this.currentUser) {
+            console.log('✅ User logged in:', this.currentUser.email);
+            ShopManager.loadUserData(this.currentUser.id);
+        }
+        
+        this.attachEventListeners();
+    },
+    
+    attachEventListeners() {
+        // Login/Signup button clicks
+        document.getElementById('loginBtn')?.addEventListener('click', () => this.showLogin());
+        document.getElementById('signupBtn')?.addEventListener('click', () => this.showSignup());
+        
+        // Modal switches
+        document.getElementById('switchToSignup')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.hideLogin();
+            this.showSignup();
+        });
+        
+        document.getElementById('switchToLogin')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.hideSignup();
+            this.showLogin();
+        });
+        
+        // Email/Password Login
+        document.getElementById('loginForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.loginWithEmail();
+        });
+        
+        // Email/Password Signup
+        document.getElementById('signupForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            this.signupWithEmail();
+        });
+        
+        // Logout
+        document.getElementById('logoutBtn')?.addEventListener('click', () => this.logout());
+        
+        // Account dropdown toggle
+        document.getElementById('accountBtn')?.addEventListener('click', () => {
+            const dropdown = document.getElementById('accountDropdown');
+            const isActive = dropdown.classList.toggle('active');
+            document.getElementById('accountBtn').setAttribute('aria-expanded', isActive);
+        });
+        
+        // Close dropdown when clicking outside
+        document.addEventListener('click', (e) => {
+            const accountSection = document.getElementById('accountSection');
+            const dropdown = document.getElementById('accountDropdown');
+            if (accountSection && !accountSection.contains(e.target)) {
+                dropdown?.classList.remove('active');
+                document.getElementById('accountBtn')?.setAttribute('aria-expanded', 'false');
+            }
+        });
+        
+        // Account dropdown menu items
+        document.getElementById('viewProfileBtn')?.addEventListener('click', () => {
+            UI.showToast('Profile page coming soon!', 'success');
+            document.getElementById('accountDropdown').classList.remove('active');
+        });
+        
+        document.getElementById('viewWishlistBtn')?.addEventListener('click', () => {
+            document.getElementById('accountDropdown').classList.remove('active');
+            ShopManager.openWishlist();
+        });
+        
+        document.getElementById('viewOrdersBtn')?.addEventListener('click', () => {
+            UI.showToast('Order history coming soon!', 'success');
+            document.getElementById('accountDropdown').classList.remove('active');
+        });
+        
+        // Password toggle
+        document.querySelectorAll('.toggle-password').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const input = this.parentElement.querySelector('input');
+                const type = input.type === 'password' ? 'text' : 'password';
+                input.type = type;
+            });
+        });
+        
+        // Close modals
+        document.querySelectorAll('.auth-modal .modal-close').forEach(btn => {
+            btn.addEventListener('click', () => {
+                this.hideLogin();
+                this.hideSignup();
+            });
+        });
+        
+        // Close on backdrop click
+        document.querySelectorAll('.auth-modal').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+        
+        // Close on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                this.hideLogin();
+                this.hideSignup();
+            }
+        });
+    },
+    
+    // Show/Hide Modals
+    showLogin() {
+        document.getElementById('loginModal').classList.add('active');
+        document.getElementById('loginEmail')?.focus();
+    },
+    
+    hideLogin() {
+        document.getElementById('loginModal').classList.remove('active');
+        this.clearError('loginError');
+        document.getElementById('loginForm')?.reset();
+    },
+    
+    showSignup() {
+        document.getElementById('signupModal').classList.add('active');
+        document.getElementById('signupName')?.focus();
+    },
+    
+    hideSignup() {
+        document.getElementById('signupModal').classList.remove('active');
+        this.clearError('signupError');
+        this.clearSuccess('signupSuccess');
+        document.getElementById('signupForm')?.reset();
+    },
+    
+    // Email/Password Login
+    loginWithEmail() {
+        const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+        const password = document.getElementById('loginPassword').value;
+        
+        if (!email || !password) {
+            this.showError('loginError', 'Please fill in all fields');
+            return;
+        }
+        
+        // Get all users from storage
+        const users = Utils.storage.get('users') || [];
+        
+        // Find user
+        const user = users.find(u => u.email === email);
+        
+        if (!user) {
+            this.showError('loginError', 'No account found with this email');
+            return;
+        }
+        
+        // Check password (in real app, this would be hashed)
+        if (user.password !== password) {
+            this.showError('loginError', 'Incorrect password');
+            return;
+        }
+        
+        // Login successful
+        const userSession = {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            createdAt: user.createdAt
+        };
+        
+        Utils.storage.set('currentUser', userSession);
+        this.currentUser = userSession;
+        
+        this.updateUI(userSession);
+        this.hideLogin();
+        
+        // Load user's wishlist and cart
+        ShopManager.loadUserData(user.id);
+        
+        UI.showToast(`Welcome back, ${user.name.split(' ')[0]}!`, 'success');
+    },
+    
+    // Email/Password Signup
+    signupWithEmail() {
+        const name = document.getElementById('signupName').value.trim();
+        const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+        const password = document.getElementById('signupPassword').value;
+        
+        // Validation
+        if (!name || !email || !password) {
+            this.showError('signupError', 'Please fill in all fields');
+            return;
+        }
+        
+        if (name.length < 2) {
+            this.showError('signupError', 'Name must be at least 2 characters');
+            return;
+        }
+        
+        if (!Utils.isValidEmail(email)) {
+            this.showError('signupError', 'Please enter a valid email address');
+            return;
+        }
+        
+        if (password.length < 6) {
+            this.showError('signupError', 'Password must be at least 6 characters');
+            return;
+        }
+        
+        // Get existing users
+        const users = Utils.storage.get('users') || [];
+        
+        // Check if email already exists
+        if (users.find(u => u.email === email)) {
+            this.showError('signupError', 'This email is already registered. Please log in instead.');
+            return;
+        }
+        
+        // Create new user
+        const newUser = {
+            id: 'user_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9),
+            name: name,
+            email: email,
+            password: password, // In real app, this would be hashed
+            createdAt: new Date().toISOString(),
+            wishlist: [],
+            cart: []
+        };
+        
+        // Save user
+        users.push(newUser);
+        Utils.storage.set('users', users);
+        
+        // Auto-login
+        const userSession = {
+            id: newUser.id,
+            name: newUser.name,
+            email: newUser.email,
+            createdAt: newUser.createdAt
+        };
+        
+        Utils.storage.set('currentUser', userSession);
+        this.currentUser = userSession;
+        
+        this.showSuccess('signupSuccess', 'Account created successfully!');
+        
+        setTimeout(() => {
+            this.updateUI(userSession);
+            this.hideSignup();
+            UI.showToast(`Welcome to Terra Lume, ${name.split(' ')[0]}!`, 'success');
+        }, 1500);
+    },
+    
+    // Logout
+    logout() {
+        Utils.storage.set('currentUser', null);
+        this.currentUser = null;
+        
+        this.updateUI(null);
+        document.getElementById('accountDropdown')?.classList.remove('active');
+        
+        UI.showToast('Logged out successfully', 'success');
+        
+        // Optional: Clear cart/wishlist on logout
+        // ShopManager.clearUserData();
+    },
+    
+    // Update UI based on auth state
+    updateUI(user) {
+        const authButtons = document.getElementById('authButtons');
+        const accountSection = document.getElementById('accountSection');
+        
+        if (user) {
+            // User is logged in
+            authButtons.style.display = 'none';
+            accountSection.style.display = 'block';
+            
+            const displayName = user.name || 'User';
+            const email = user.email || '';
+            const initial = displayName.charAt(0).toUpperCase();
+            
+            // Update account button
+            document.getElementById('accountName').textContent = displayName.split(' ')[0];
+            document.getElementById('accountInitial').textContent = initial;
+            
+            // Update dropdown
+            document.getElementById('accountDropdownName').textContent = displayName;
+            document.getElementById('accountDropdownEmail').textContent = email;
+            
+        } else {
+            // User is logged out
+            authButtons.style.display = 'flex';
+            accountSection.style.display = 'none';
+        }
+    },
+    
+    // Show/hide error messages
+    showError(elementId, message) {
+        const el = document.getElementById(elementId);
+        if (el) {
+            el.textContent = message;
+            el.classList.add('show');
+        }
+    },
+    
+    clearError(elementId) {
+        const el = document.getElementById(elementId);
+        if (el) {
+            el.textContent = '';
+            el.classList.remove('show');
+        }
+    },
+    
+    showSuccess(elementId, message) {
+        const el = document.getElementById(elementId);
+        if (el) {
+            el.textContent = message;
+            el.classList.add('show');
+        }
+    },
+    
+    clearSuccess(elementId) {
+        const el = document.getElementById(elementId);
+        if (el) {
+            el.textContent = '';
+            el.classList.remove('show');
+        }
+    },
+    
+    // Check if user is logged in
+    isLoggedIn() {
+        return this.currentUser !== null;
+    },
+    
+    // Require login for actions
+    requireLogin(callback) {
+        if (this.isLoggedIn()) {
+            callback();
+        } else {
+            this.showLogin();
+            UI.showToast('Please log in to continue', 'error');
+        }
+    }
+};
+
+// ==================== UPDATE SHOPMANAGER FOR SIMPLE AUTH ====================
+// Add these methods to your existing ShopManager object:
+
+// Add this to ShopManager (merge with existing code):
+Object.assign(ShopManager, {
+    // Load user-specific data
+    loadUserData(userId) {
+        const users = Utils.storage.get('users') || [];
+        const user = users.find(u => u.id === userId);
+        
+        if (user) {
+            this.wishlist = user.wishlist || [];
+            this.cart = user.cart || [];
+            
+            Utils.storage.set('wishlist', this.wishlist);
+            Utils.storage.set('cart', this.cart);
+            
+            this.updateWishlistUI();
+            this.updateCartUI();
+        }
+    },
+    
+    // Save user-specific data
+    saveUserData(userId) {
+        if (!userId) return;
+        
+        const users = Utils.storage.get('users') || [];
+        const userIndex = users.findIndex(u => u.id === userId);
+        
+        if (userIndex !== -1) {
+            users[userIndex].wishlist = this.wishlist;
+            users[userIndex].cart = this.cart;
+            Utils.storage.set('users', users);
+        }
+    },
+    
+    // Clear user data on logout (optional)
+    clearUserData() {
+        this.wishlist = [];
+        this.cart = [];
+        Utils.storage.set('wishlist', []);
+        Utils.storage.set('cart', []);
+        this.updateWishlistUI();
+        this.updateCartUI();
+    },
+    
+    // UPDATED: Add to wishlist (requires login)
+    addToWishlist(productId) {
+        if (!SimpleAuth.isLoggedIn()) {
+            SimpleAuth.showLogin();
+            UI.showToast('Please log in to save to wishlist', 'error');
+            return false;
+        }
+        
+        if (!this.wishlist.includes(productId)) {
+            this.wishlist.push(productId);
+            Utils.storage.set('wishlist', this.wishlist);
+            this.saveUserData(SimpleAuth.currentUser.id);
+            this.updateWishlistUI();
+            UI.showToast(`${PRODUCTS_DATA[productId].name} added to wishlist`, 'success');
+            return true;
+        }
+        return false;
+    },
+    
+    // UPDATED: Remove from wishlist
+    removeFromWishlist(productId) {
+        this.wishlist = this.wishlist.filter(id => id !== productId);
+        Utils.storage.set('wishlist', this.wishlist);
+        if (SimpleAuth.currentUser) {
+            this.saveUserData(SimpleAuth.currentUser.id);
+        }
+        this.updateWishlistUI();
+        UI.showToast(`Removed from wishlist`, 'success');
+    },
+    
+    // UPDATED: Add to cart (requires login)
+    addToCart(productId) {
+        if (!SimpleAuth.isLoggedIn()) {
+            SimpleAuth.showLogin();
+            UI.showToast('Please log in to add to cart', 'error');
+            return;
+        }
+        
+        const existingItem = this.cart.find(item => item.id === productId);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            this.cart.push({
+                id: productId,
+                quantity: 1,
+                addedAt: new Date().toISOString()
+            });
+        }
+        
+        Utils.storage.set('cart', this.cart);
+        this.saveUserData(SimpleAuth.currentUser.id);
+        this.updateCartUI();
+        UI.showToast(`${PRODUCTS_DATA[productId].name} added to cart`, 'success');
+    },
+    
+    // UPDATED: Remove from cart
+    removeFromCart(productId) {
+        this.cart = this.cart.filter(item => item.id !== productId);
+        Utils.storage.set('cart', this.cart);
+        if (SimpleAuth.currentUser) {
+            this.saveUserData(SimpleAuth.currentUser.id);
+        }
+        this.updateCartUI();
+        UI.showToast(`Removed from cart`, 'success');
+    }
+});
 </script>
 
 <!-- Wishlist Modal -->
