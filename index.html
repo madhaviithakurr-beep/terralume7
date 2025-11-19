@@ -1598,6 +1598,560 @@ a {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--accent-secondary);
 }
+/* ==================== WISHLIST & CART SYSTEM ==================== */
+
+/* Wishlist Heart Button on Product Card */
+.wishlist-btn {
+    position: absolute;
+    top: var(--space-md);
+    left: var(--space-md);
+    z-index: 10;
+    width: 44px;
+    height: 44px;
+    background: rgba(11, 16, 32, 0.7);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(166, 124, 82, 0.3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s var(--ease);
+    opacity: 0;
+}
+
+.product-card:hover .wishlist-btn,
+.product-card:focus-within .wishlist-btn {
+    opacity: 1;
+}
+
+.wishlist-btn:hover,
+.wishlist-btn:focus-visible {
+    transform: scale(1.1);
+    background: rgba(166, 124, 82, 0.9);
+    border-color: var(--accent-primary);
+}
+
+.wishlist-btn:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+}
+
+.wishlist-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: var(--text-primary);
+    fill: none;
+    transition: all 0.3s var(--ease);
+}
+
+.wishlist-btn.active svg {
+    fill: #EF4444;
+    stroke: #EF4444;
+    animation: heartBeat 0.6s var(--ease-spring);
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    25% { transform: scale(1.3); }
+    50% { transform: scale(0.9); }
+    75% { transform: scale(1.1); }
+}
+
+/* Add to Cart Button */
+.add-to-cart-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    width: 100%;
+    padding: var(--space-md);
+    background: var(--accent-primary);
+    color: white;
+    font-size: var(--font-base);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+    transition: all 0.3s var(--ease);
+    position: relative;
+    overflow: hidden;
+    min-height: 48px;
+}
+
+.add-to-cart-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent-secondary);
+    transform: translateY(100%);
+    transition: transform 0.3s var(--ease);
+}
+
+.add-to-cart-btn:hover::before {
+    transform: translateY(0);
+}
+
+.add-to-cart-btn span,
+.add-to-cart-btn svg {
+    position: relative;
+    z-index: 1;
+}
+
+.add-to-cart-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px var(--accent-glow);
+}
+
+.add-to-cart-btn:active {
+    transform: translateY(0);
+}
+
+.add-to-cart-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    fill: none;
+}
+
+.add-to-cart-btn.added {
+    background: #10B981;
+}
+
+.add-to-cart-btn.added::before {
+    background: #059669;
+}
+
+/* Header Cart & Wishlist Icons */
+.header-icons {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.header-icon-btn {
+    position: relative;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s var(--ease);
+}
+
+.header-icon-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--bg-tertiary);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.3s var(--ease);
+}
+
+.header-icon-btn:hover::before,
+.header-icon-btn:focus-visible::before {
+    transform: scale(1);
+}
+
+.header-icon-btn:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+}
+
+.header-icon-btn svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--text-primary);
+    fill: none;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s var(--ease);
+}
+
+.header-icon-btn:hover svg {
+    stroke: var(--accent-primary);
+    transform: scale(1.1);
+}
+
+.header-icon-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 4px;
+    background: #EF4444;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    border: 2px solid var(--bg-primary);
+    animation: badgePop 0.4s var(--ease-spring);
+}
+
+@keyframes badgePop {
+    0% { transform: scale(0); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* Modal Backdrop */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: var(--overlay);
+    backdrop-filter: blur(10px);
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-lg);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s var(--ease);
+}
+
+.modal-backdrop.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-backdrop.active .modal-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* Modal Content */
+.modal-content {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    max-width: 600px;
+    width: 100%;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px var(--shadow-lg);
+    border: 1px solid var(--border);
+    transform: scale(0.9) translateY(30px);
+    opacity: 0;
+    transition: all 0.3s var(--ease);
+}
+
+.modal-header {
+    padding: var(--space-xl);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: var(--bg-secondary);
+    z-index: 10;
+}
+
+.modal-title {
+    font-size: var(--font-2xl);
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.modal-close {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s var(--ease);
+}
+
+.modal-close:hover,
+.modal-close:focus-visible {
+    background: var(--bg-tertiary);
+    transform: rotate(90deg);
+}
+
+.modal-close:focus-visible {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 4px;
+}
+
+.modal-close svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--text-primary);
+}
+
+.modal-body {
+    padding: var(--space-xl);
+}
+
+/* Cart/Wishlist Item */
+.item-card {
+    display: flex;
+    gap: var(--space-lg);
+    padding: var(--space-lg);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-md);
+    border: 1px solid var(--border);
+    transition: all 0.3s var(--ease);
+    animation: slideInRight 0.4s var(--ease-out);
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.item-card:hover {
+    border-color: var(--accent-primary);
+    transform: translateX(5px);
+}
+
+.item-image {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+    background: var(--bg-secondary);
+    flex-shrink: 0;
+}
+
+.item-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+}
+
+.item-name {
+    font-size: var(--font-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.item-description {
+    font-size: var(--font-sm);
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.item-actions {
+    display: flex;
+    gap: var(--space-sm);
+    margin-top: auto;
+}
+
+.item-action-btn {
+    padding: var(--space-xs) var(--space-md);
+    font-size: var(--font-sm);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    transition: all 0.3s var(--ease);
+}
+
+.item-action-btn.remove {
+    color: #EF4444;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.item-action-btn.remove:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: #EF4444;
+}
+
+.item-action-btn.inquire {
+    color: var(--accent-primary);
+    border: 1px solid rgba(166, 124, 82, 0.3);
+}
+
+.item-action-btn.inquire:hover {
+    background: rgba(166, 124, 82, 0.1);
+    border-color: var(--accent-primary);
+}
+
+/* Empty State */
+.empty-cart-state {
+    text-align: center;
+    padding: var(--space-3xl) var(--space-xl);
+}
+
+.empty-cart-state svg {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto var(--space-lg);
+    stroke: var(--text-tertiary);
+    opacity: 0.3;
+}
+
+.empty-cart-state h3 {
+    font-size: var(--font-2xl);
+    margin-bottom: var(--space-sm);
+    color: var(--text-secondary);
+}
+
+.empty-cart-state p {
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-xl);
+}
+
+/* Coming Soon Modal */
+.coming-soon-modal .modal-content {
+    max-width: 500px;
+    text-align: center;
+}
+
+.coming-soon-icon {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto var(--space-xl);
+    background: linear-gradient(135deg, var(--accent-light), var(--accent-primary));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--glow-md);
+    animation: float 3s ease-in-out infinite;
+}
+
+.coming-soon-icon svg {
+    width: 50px;
+    height: 50px;
+    stroke: white;
+    stroke-width: 2;
+}
+
+.coming-soon-title {
+    font-size: var(--font-3xl);
+    margin-bottom: var(--space-md);
+}
+
+.coming-soon-message {
+    font-size: var(--font-lg);
+    color: var(--text-secondary);
+    margin-bottom: var(--space-sm);
+    line-height: 1.7;
+}
+
+.coming-soon-submessage {
+    font-size: var(--font-base);
+    color: var(--text-tertiary);
+    margin-bottom: var(--space-2xl);
+}
+
+.coming-soon-cta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+/* Cart Footer (Checkout Button) */
+.cart-footer {
+    padding: var(--space-xl);
+    border-top: 1px solid var(--border);
+    position: sticky;
+    bottom: 0;
+    background: var(--bg-secondary);
+}
+
+.cart-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-lg);
+    font-size: var(--font-xl);
+    font-weight: 600;
+}
+
+.checkout-btn {
+    width: 100%;
+    padding: var(--space-md);
+    background: var(--accent-primary);
+    color: white;
+    font-size: var(--font-lg);
+    font-weight: 600;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    transition: all 0.3s var(--ease);
+}
+
+.checkout-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px var(--accent-glow);
+    background: var(--accent-secondary);
+}
+
+.checkout-btn svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+    .modal-content {
+        max-height: 90vh;
+    }
+    
+    .item-card {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+    
+    .item-image {
+        width: 100%;
+        height: 200px;
+    }
+    
+    .item-actions {
+        flex-direction: column;
+    }
+    
+    .header-icons {
+        gap: 4px;
+    }
+    
+    .header-icon-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .header-icon-btn svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+/* Scrollbar for modals */
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: var(--bg-tertiary);
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: var(--accent-primary);
+    border-radius: 4px;
+}
 </style>
 </head>
 <body>
@@ -1621,17 +2175,37 @@ a {
 <!-- Header -->
 <header class="header" id="header">
     <div class="header-container">
-        <a href="#home" class="logo">
-            <img src="WhatsApp_Image_2025-11-14_at_5_imgupscaler.ai_General_2K-removebg-preview.png" alt="Terra Lume Logo" class="logo-img">
-            <span>Terra Lume</span>
-        </a>
+    <a href="#home" class="logo">
+        <img src="assets/terra-lume-logo.png" alt="Terra Lume Logo" class="logo-img">
+        <span>Terra Lume</span>
+    </a>
 
-        <nav class="nav" aria-label="Main navigation">
-            <a href="#home" class="nav-link">Home</a>
-            <a href="#products" class="nav-link">Collection</a>
-            <a href="#reviews" class="nav-link">Reviews</a>
-            <a href="#contact" class="nav-link">Contact</a>
-        </nav>
+    <nav class="nav" aria-label="Main navigation">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#products" class="nav-link">Collection</a>
+        <a href="#reviews" class="nav-link">Reviews</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <!-- NEW: Header Icons -->
+    <div class="header-actions">
+        <div class="header-icons">
+            <!-- Wishlist Button -->
+            <button class="header-icon-btn" id="headerWishlistBtn" aria-label="Wishlist">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+                <span class="header-icon-badge" id="wishlistBadge" style="display: none;">0</span>
+            </button>
+            
+            <!-- Cart Button -->
+            <button class="header-icon-btn" id="headerCartBtn" aria-label="Shopping cart">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                <span class="header-icon-badge" id="cartBadge" style="display: none;">0</span>
+            </button>
+        </div>
 
         <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
             <span></span>
@@ -1639,6 +2213,7 @@ a {
             <span></span>
         </button>
     </div>
+</div>
 </header>
 
 <!-- Mobile Menu -->
@@ -1685,98 +2260,48 @@ a {
 
         <div class="products-grid">
                     <!-- Product 1: Terra -->
-            <article class="product-card">
+            <!-- Product 1: Terra -->
+            <article class="product-card" data-product-id="terra">
                 <div class="product-image">
                     <div class="planet-backplate" aria-hidden="true"></div>
                     
-                    <!-- NEW: Carousel Container -->
-                    <div class="product-carousel" data-carousel>
-                        <div class="carousel-track">
-                            <!-- Slide 1 -->
-                            <div class="carousel-slide">
-                                <img src="assets/lamps/terra/terra-1.webp" 
-                                    alt="Terra Lamp - Front view" 
-                                    class="lamp-img" 
-                                    loading="lazy"
-                                    width="800" 
-                                    height="800">
-                            </div>
-                            
-                            <!-- Slide 2 -->
-                            <div class="carousel-slide">
-                                <img src="assets/lamps/terra/terra-2.webp" 
-                                    alt="Terra Lamp - Side angle" 
-                                    class="lamp-img" 
-                                    loading="lazy"
-                                    width="800" 
-                                    height="800">
-                            </div>
-                            
-                            <!-- Slide 3 -->
-                            <div class="carousel-slide">
-                                <img src="assets/lamps/terra/terra-3.webp" 
-                                    alt="Terra Lamp - Detail shot" 
-                                    class="lamp-img" 
-                                    loading="lazy"
-                                    width="800" 
-                                    height="800">
-                            </div>
-                            
-                            <!-- Slide 4 -->
-                            <div class="carousel-slide">
-                                <img src="assets/lamps/terra/terra-4.webp" 
-                                    alt="Terra Lamp - Lifestyle context" 
-                                    class="lamp-img" 
-                                    loading="lazy"
-                                    width="800" 
-                                    height="800">
-                            </div>
-                        </div>
-                        
-                        <!-- Navigation Arrows -->
-                        <button class="carousel-nav prev" aria-label="Previous image">
-                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
-                            </svg>
-                        </button>
-                        <button class="carousel-nav next" aria-label="Next image">
-                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/>
-                            </svg>
-                        </button>
-                        
-                        <!-- Dot Indicators -->
-                        <div class="carousel-indicators" role="tablist" aria-label="Product images">
-                            <button class="carousel-dot active" aria-label="Image 1" role="tab" aria-selected="true"></button>
-                            <button class="carousel-dot" aria-label="Image 2" role="tab" aria-selected="false"></button>
-                            <button class="carousel-dot" aria-label="Image 3" role="tab" aria-selected="false"></button>
-                            <button class="carousel-dot" aria-label="Image 4" role="tab" aria-selected="false"></button>
-                        </div>
-                        <!-- Add after carousel-indicators -->
-                        <div class="carousel-counter">
-                            <span class="current">1</span>/<span class="total">4</span>
-                        </div>
-                        
-                        <!-- Pause indicator (shown when user interacts) -->
-                        <div class="carousel-pause-indicator" aria-hidden="true">
-                            <svg viewBox="0 0 24 24">
-                                <rect x="6" y="4" width="4" height="16" rx="1"/>
-                                <rect x="14" y="4" width="4" height="16" rx="1"/>
-                            </svg>
-                        </div>
-                    </div>
+                    <!-- Wishlist Heart Button -->
+                    <button class="wishlist-btn" 
+                            data-product-id="terra" 
+                            aria-label="Add to wishlist"
+                            title="Add to wishlist">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Keep your carousel or single image here -->
+                    <img src="assets/lamps/terra-lamp.webp" 
+                        alt="Terra Lamp - Hand-brushed brass finish designer lamp" 
+                        class="lamp-img" 
+                        loading="lazy">
                     
                     <div class="product-badge">Signature</div>
                 </div>
                 
-                <!-- Product info stays the same -->
                 <div class="product-info">
                     <h3 class="product-name">Terra</h3>
                     <div class="product-price">Inquire for Pricing</div>
-                    <p class="product-description"></p>
+                    <p class="product-description">Inspired by Earth's warm glow. Ambient light with adjustable intensity.</p>
                     <ul class="product-features">
-                        <li></li>
+                        <li>Hand-brushed brass finish</li>
+                        <li>Dimmable LED technology</li>
+                        <li>12" diameter, 18" height</li>
                     </ul>
+                    
+                    <!-- NEW: Add to Cart Button -->
+                    <button class="add-to-cart-btn" data-product-id="terra">
+                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <span>Add to Cart</span>
+                    </button>
+                    
                     <a href="#contact" class="product-cta" data-product="Terra Lamp">
                         <span>Inquire Now</span>
                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -2696,6 +3221,7 @@ function initApp() {
     LazyEffects.init();
     KeyboardNav.init();
     ProductCarousel.init();
+    ShopManager.init();
 
     // Render reviews
     UI.renderReviews();
@@ -3015,9 +3541,426 @@ class Carousel {
         }
     }
 }
+// ==================== PRODUCT DATA ====================
+const PRODUCTS_DATA = {
+    terra: {
+        id: 'terra',
+        name: 'Terra',
+        description: 'Inspired by Earth\'s warm glow. Ambient light with adjustable intensity.',
+        features: ['Hand-brushed brass finish', 'Dimmable LED technology', '12" diameter, 18" height'],
+        image: 'assets/lamps/terra/terra-1.webp' // or your single image path
+    },
+    luna: {
+        id: 'luna',
+        name: 'Luna',
+        description: 'Moonlit elegance. Soft, diffused light for serene environments.',
+        features: ['Frosted glass sphere', 'Warm white 2700K', '14" diameter, 22" height'],
+        image: 'assets/lamps/luna/luna-1.webp'
+    },
+    sol: {
+        id: 'sol',
+        name: 'Sol',
+        description: 'Solar radiance captured. Vibrant, energizing light for creative spaces.',
+        features: ['Amber glass with brass rays', 'Adjustable color temperature', '16" diameter, 24" height'],
+        image: 'assets/lamps/sol/sol-1.webp'
+    }
+};
 
+// ==================== WISHLIST & CART MANAGER ====================
+const ShopManager = {
+    wishlist: Utils.storage.get('wishlist') || [],
+    cart: Utils.storage.get('cart') || [],
+    
+    // Wishlist methods
+    addToWishlist(productId) {
+        if (!this.wishlist.includes(productId)) {
+            this.wishlist.push(productId);
+            Utils.storage.set('wishlist', this.wishlist);
+            this.updateWishlistUI();
+            UI.showToast(`${PRODUCTS_DATA[productId].name} added to wishlist`, 'success');
+            return true;
+        }
+        return false;
+    },
+    
+    removeFromWishlist(productId) {
+        this.wishlist = this.wishlist.filter(id => id !== productId);
+        Utils.storage.set('wishlist', this.wishlist);
+        this.updateWishlistUI();
+        UI.showToast(`Removed from wishlist`, 'success');
+    },
+    
+    isInWishlist(productId) {
+        return this.wishlist.includes(productId);
+    },
+    
+    // Cart methods
+    addToCart(productId) {
+        const existingItem = this.cart.find(item => item.id === productId);
+        
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            this.cart.push({
+                id: productId,
+                quantity: 1,
+                addedAt: new Date().toISOString()
+            });
+        }
+        
+        Utils.storage.set('cart', this.cart);
+        this.updateCartUI();
+        UI.showToast(`${PRODUCTS_DATA[productId].name} added to cart`, 'success');
+    },
+    
+    removeFromCart(productId) {
+        this.cart = this.cart.filter(item => item.id !== productId);
+        Utils.storage.set('cart', this.cart);
+        this.updateCartUI();
+        UI.showToast(`Removed from cart`, 'success');
+    },
+    
+    getCartCount() {
+        return this.cart.reduce((total, item) => total + item.quantity, 0);
+    },
+    
+    // UI Updates
+    updateWishlistUI() {
+        const badge = document.getElementById('wishlistBadge');
+        const count = this.wishlist.length;
+        
+        if (count > 0) {
+            badge.textContent = count;
+            badge.style.display = 'flex';
+        } else {
+            badge.style.display = 'none';
+        }
+        
+        // Update wishlist buttons
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            const productId = btn.dataset.productId;
+            const isActive = this.isInWishlist(productId);
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-label', isActive ? 'Remove from wishlist' : 'Add to wishlist');
+        });
+    },
+    
+    updateCartUI() {
+        const badge = document.getElementById('cartBadge');
+        const count = this.getCartCount();
+        
+        if (count > 0) {
+            badge.textContent = count;
+            badge.style.display = 'flex';
+        } else {
+            badge.style.display = 'none';
+        }
+    },
+    
+    // Render wishlist modal content
+    renderWishlist() {
+        const container = document.getElementById('wishlistItems');
+        
+        if (this.wishlist.length === 0) {
+            container.innerHTML = `
+                <div class="empty-cart-state">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                    </svg>
+                    <h3>Your Wishlist is Empty</h3>
+                    <p>Save your favorite lamps to revisit them later.</p>
+                    <button class="btn btn-primary" onclick="document.getElementById('wishlistModal').classList.remove('active')">
+                        <span>Browse Collection</span>
+                    </button>
+                </div>
+            `;
+            return;
+        }
+        
+        const itemsHTML = this.wishlist.map(productId => {
+            const product = PRODUCTS_DATA[productId];
+            return `
+                <div class="item-card" data-product-id="${productId}">
+                    <img src="${product.image}" alt="${product.name}" class="item-image">
+                    <div class="item-info">
+                        <h3 class="item-name">${product.name}</h3>
+                        <p class="item-description">${product.description}</p>
+                        <div class="item-actions">
+                            <button class="item-action-btn remove" onclick="ShopManager.removeFromWishlist('${productId}'); ShopManager.renderWishlist();">
+                                Remove
+                            </button>
+                            <button class="item-action-btn inquire" onclick="ContactForm.prefillProduct('${product.name}'); document.getElementById('wishlistModal').classList.remove('active'); document.querySelector('#contact').scrollIntoView({behavior: 'smooth'});">
+                                Inquire
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        container.innerHTML = itemsHTML;
+    },
+    
+    // Render cart modal content
+    renderCart() {
+        const container = document.getElementById('cartItems');
+        const footer = document.getElementById('cartFooter');
+        const totalItems = document.getElementById('cartTotalItems');
+        
+        if (this.cart.length === 0) {
+            container.innerHTML = `
+                <div class="empty-cart-state">
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    <h3>Your Cart is Empty</h3>
+                    <p>Add some beautiful lamps to your cart.</p>
+                    <button class="btn btn-primary" onclick="document.getElementById('cartModal').classList.remove('active')">
+                        <span>Browse Collection</span>
+                    </button>
+                </div>
+            `;
+            footer.style.display = 'none';
+            return;
+        }
+        
+        const itemsHTML = this.cart.map(item => {
+            const product = PRODUCTS_DATA[item.id];
+            return `
+                <div class="item-card" data-product-id="${item.id}">
+                    <img src="${product.image}" alt="${product.name}" class="item-image">
+                    <div class="item-info">
+                        <h3 class="item-name">${product.name}</h3>
+                        <p class="item-description">${product.description}</p>
+                        <div class="item-actions">
+                            <button class="item-action-btn remove" onclick="ShopManager.removeFromCart('${item.id}'); ShopManager.renderCart();">
+                                Remove
+                            </button>
+                            <button class="item-action-btn inquire" onclick="ContactForm.prefillProduct('${product.name}'); document.getElementById('cartModal').classList.remove('active'); document.querySelector('#contact').scrollIntoView({behavior: 'smooth'});">
+                                Inquire
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+        
+        container.innerHTML = itemsHTML;
+        totalItems.textContent = this.getCartCount();
+        footer.style.display = 'block';
+    },
+    
+    init() {
+        this.updateWishlistUI();
+        this.updateCartUI();
+        this.attachEventListeners();
+    },
+    
+    attachEventListeners() {
+        // Wishlist buttons
+        document.querySelectorAll('.wishlist-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const productId = btn.dataset.productId;
+                
+                if (this.isInWishlist(productId)) {
+                    this.removeFromWishlist(productId);
+                } else {
+                    this.addToWishlist(productId);
+                }
+            });
+        });
+        
+        // Add to cart buttons
+        document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const productId = this.dataset.productId;
+                ShopManager.addToCart(productId);
+                
+                // Visual feedback
+                const originalHTML = this.innerHTML;
+                this.classList.add('added');
+                this.innerHTML = `
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 20px; height: 20px;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                    <span>Added!</span>
+                `;
+                
+                setTimeout(() => {
+                    this.classList.remove('added');
+                    this.innerHTML = originalHTML;
+                }, 2000);
+            });
+        });
+        
+        // Header wishlist button
+        document.getElementById('headerWishlistBtn')?.addEventListener('click', () => {
+            this.openWishlist();
+        });
+        
+        // Header cart button
+        document.getElementById('headerCartBtn')?.addEventListener('click', () => {
+            this.openCart();
+        });
+        
+        // Checkout button (shows coming soon modal)
+        document.getElementById('checkoutBtn')?.addEventListener('click', () => {
+            this.showComingSoon();
+        });
+        
+        // Continue shopping button
+        document.getElementById('continueShoppingBtn')?.addEventListener('click', () => {
+            document.getElementById('comingSoonModal').classList.remove('active');
+        });
+        
+        // Modal close buttons
+        document.querySelectorAll('.modal-close').forEach(btn => {
+            btn.addEventListener('click', function() {
+                this.closest('.modal-backdrop').classList.remove('active');
+            });
+        });
+        
+        // Close modals on backdrop click
+        document.querySelectorAll('.modal-backdrop').forEach(modal => {
+            modal.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                }
+            });
+        });
+        
+        // Close modals on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                document.querySelectorAll('.modal-backdrop.active').forEach(modal => {
+                    modal.classList.remove('active');
+                });
+            }
+        });
+    },
+    
+    openWishlist() {
+        this.renderWishlist();
+        document.getElementById('wishlistModal').classList.add('active');
+    },
+    
+    openCart() {
+        this.renderCart();
+        document.getElementById('cartModal').classList.add('active');
+    },
+    
+    showComingSoon() {
+        document.getElementById('cartModal').classList.remove('active');
+        document.getElementById('comingSoonModal').classList.add('active');
+    }
+};
+
+// ==================== ENHANCE CONTACT FORM ====================
+const ContactFormEnhanced = {
+    prefillProduct(productName) {
+        const subjectField = document.getElementById('contactSubject');
+        if (subjectField) {
+            subjectField.value = `Inquiry about ${productName}`;
+            subjectField.focus();
+        }
+    }
+};
+
+// Merge with existing ContactForm
+Object.assign(ContactForm, ContactFormEnhanced);
 </script>
 
+<!-- Wishlist Modal -->
+<div class="modal-backdrop" id="wishlistModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 28px; height: 28px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+                My Wishlist
+            </h2>
+            <button class="modal-close" aria-label="Close wishlist">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body" id="wishlistItems">
+            <!-- Wishlist items will be inserted here -->
+        </div>
+    </div>
+</div>
 
+<!-- Cart Modal -->
+<div class="modal-backdrop" id="cartModal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 class="modal-title">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width: 28px; height: 28px;">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                </svg>
+                Shopping Cart
+            </h2>
+            <button class="modal-close" aria-label="Close cart">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body" id="cartItems">
+            <!-- Cart items will be inserted here -->
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display: none;">
+            <div class="cart-total">
+                <span>Total Items:</span>
+                <span id="cartTotalItems">0</span>
+            </div>
+            <button class="checkout-btn" id="checkoutBtn">
+                <span>Proceed to Checkout</span>
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Coming Soon Modal -->
+<div class="modal-backdrop coming-soon-modal" id="comingSoonModal">
+    <div class="modal-content">
+        <div class="modal-header" style="border-bottom: none;">
+            <div></div>
+            <button class="modal-close" aria-label="Close">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="coming-soon-icon">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            <h2 class="coming-soon-title">Online Shopping Coming Soon</h2>
+            <p class="coming-soon-message">
+                We're crafting an exceptional online shopping experience worthy of our luxury collection.
+            </p>
+            <p class="coming-soon-submessage">
+                In the meantime, we'd love to assist you personally. Contact us to discuss your lighting needs.
+            </p>
+            <div class="coming-soon-cta">
+                <a href="#contact" class="btn btn-primary" style="width: 100%;">
+                    <span>Contact Us</span>
+                </a>
+                <button class="btn btn-secondary" id="continueShoppingBtn" style="width: 100%;">
+                    <span>Continue Browsing</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
