@@ -833,7 +833,6 @@
             }
         }
 
-                /* ==================== UPDATED PRODUCT IMAGE STYLES ==================== */
         .product-image {
             position: relative;
             aspect-ratio: 1;
@@ -842,16 +841,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: var(--radius-md); /* Add subtle rounded corners */
         }
 
         .planet-backplate {
             position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: var(--radius-md); /* Match container radius */
+            width: 80%;
+            height: 80%;
+            border-radius: 50%;
             background: radial-gradient(circle at 35% 35%, var(--accent-secondary), var(--accent-primary));
-            opacity: 0.15; /* Make it subtle behind the image */
             box-shadow: var(--glow-md);
             transition: all var(--duration-slow) var(--ease);
         }
@@ -859,7 +856,6 @@
         @media (hover: hover) {
             .product-card:hover .planet-backplate {
                 transform: scale(1.05);
-                opacity: 0.2; /* Slightly more visible on hover */
                 box-shadow: var(--glow-lg);
             }
         }
@@ -867,18 +863,16 @@
         .lamp-img {
             position: relative;
             z-index: 2;
-            width: 100%; /* Fill container width */
-            height: 100%; /* Fill container height */
-            object-fit: cover; /* Cover the entire space, cropping if needed */
-            object-position: center; /* Center the image */
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
             filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.5));
             transition: transform var(--duration-slow) var(--ease);
-            border-radius: var(--radius-md); /* Match container radius */
         }
 
         @media (hover: hover) {
             .product-card:hover .lamp-img {
-                transform: scale(1.05); /* Subtle zoom instead of large scale */
+                transform: scale(1.08) translateY(-5px);
             }
         }
 
@@ -2585,7 +2579,7 @@
         </div>
 
         <div class="products-grid">
-            <!-- Product 1: Scenery -->
+            <!-- Product 1: Terra -->
             <article class="product-card" data-product-id="terra">
                 <div class="product-image">
                     <div class="planet-backplate" aria-hidden="true"></div>
@@ -2599,22 +2593,22 @@
                         </svg>
                     </button>
                     
-                    <img src="WhatsApp Image 2025-11-30 at 10.14.54 PM.jpeg" 
+                    <img src="WhatsApp Image 2025-11-30 at 11.03.29 PM.jpeg" 
                          alt="Terra Lamp - Hand-brushed brass finish designer lamp" 
                          class="lamp-img" 
                          loading="lazy">
                     
-                    <div class="product-badge">Nature</div>
+                    <div class="product-badge">Premium</div>
                 </div>
                 
                 <div class="product-info">
-                    <h3 class="product-name">HORIZON DREAMS LAMP</h3>
-                    <div class="product-price">600</div>
-                    <p class="product-description">Hand-painted sunset landscape sphere that glows with warmth, bringing nature's beauty indoors.</p>
+                    <h3 class="product-name">SOLAR SWIRL LAMP</h3>
+                    <div class="product-price">700</div>
+                    <p class="product-description">Golden spiral brushstrokes create a radiant sun effect, filling your space with energizing warmth.</p>
                     <ul class="product-features">
-                        <li>Unique hand-painted design</li>
-                        <li>Warm ambient glow</li>
-                        <li>Nature-inspired artistry</li>
+                        <li>Handcrafted spiral design</li>
+                        <li>Intense golden glow</li>
+                        <li>Solar-inspired energy</li>
                     </ul>
                     
                     <button class="add-to-cart-btn" data-product-id="terra">
@@ -2633,7 +2627,7 @@
                 </div>
             </article>
 
-            <!-- Product 2: Moon -->
+            <!-- Product 2: Luna -->
             <article class="product-card" data-product-id="luna">
                 <div class="product-image">
                     <div class="planet-backplate" aria-hidden="true"></div>
@@ -2647,7 +2641,7 @@
                         </svg>
                     </button>
                     
-                    <img src="WhatsApp Image 2025-11-30 at 10.14.53 PM (1).jpeg" 
+                    <img src="WhatsApp Image 2025-11-30 at 11.03.29 PM (2).jpeg" 
                          alt="Luna Lamp - Frosted glass sphere designer lamp" 
                          class="lamp-img" 
                          loading="lazy">
@@ -2656,7 +2650,7 @@
                 </div>
                 
                 <div class="product-info">
-                    <h3 class="product-name"> CELESTIAL CRACKLE LAMP</h3>
+                    <h3 class="product-name">CELESTIAL CRACKLE LAMP</h3>
                     <div class="product-price">700</div>
                     <p class="product-description">Mesmerizing crackle-globe lamp with cosmic web patterns that illuminate like a glowing celestial orb.</p>
                     <ul class="product-features">
@@ -2681,7 +2675,7 @@
                 </div>
             </article>
 
-            <!-- Product 3: Sun -->
+            <!-- Product 3: Sol -->
             <article class="product-card" data-product-id="sol">
                 <div class="product-image">
                     <div class="planet-backplate" aria-hidden="true"></div>
@@ -2695,22 +2689,22 @@
                         </svg>
                     </button>
                     
-                    <img src="WhatsApp Image 2025-11-30 at 10.14.53 PM.jpeg" 
+                    <img src="WhatsApp Image 2025-11-30 at 11.03.29 PM (1).jpeg" 
                          alt="Sol Lamp - Amber glass with brass rays designer lamp" 
                          class="lamp-img" 
                          loading="lazy">
                     
-                    <div class="product-badge">Exclusive</div>
+                    <div class="product-badge">Standard</div>
                 </div>
                 
                 <div class="product-info">
-                    <h3 class="product-name">SOLAR SWIRL LAMP</h3>
-                    <div class="product-price">700</div>
-                    <p class="product-description">Golden spiral brushstrokes create a radiant sun effect, filling your space with energizing warmth.</p>
+                    <h3 class="product-name">HORIZON DREAMS LAMP</h3>
+                    <div class="product-price">600</div>
+                    <p class="product-description">Hand-painted sunset landscape sphere that glows with warmth, bringing nature's beauty indoors.</p>
                     <ul class="product-features">
-                        <li>Handcrafted spiral design</li>
-                        <li>Intense golden glow</li>
-                        <li>Solar-inspired energy</li>
+                        <li>Unique hand-painted design</li>
+                        <li>Warm ambient glow</li>
+                        <li>Nature-inspired artistry</li>
                     </ul>
                     
                     <button class="add-to-cart-btn" data-product-id="sol">
